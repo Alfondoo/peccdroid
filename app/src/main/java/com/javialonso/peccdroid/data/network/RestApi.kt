@@ -14,7 +14,13 @@ class RestApi @Inject internal constructor() {
 
     private val retrofit: Retrofit = getApiClient()
     val authenticationService: AuthenticationApi = retrofit.create(AuthenticationApi::class.java)
+    val feedService: FeedApi = retrofit.create(FeedApi::class.java)
     var authorizationToken: String? = null
+
+    fun setAuthorizationToken(authToken: String): String? {
+        authorizationToken = authToken
+        return authorizationToken
+    }
 
     private fun getApiClient(): Retrofit {
 
@@ -25,7 +31,7 @@ class RestApi @Inject internal constructor() {
         httpClient.addInterceptor(logging)
 
         return Retrofit.Builder()
-                .baseUrl("http://192.168.1.8/api/0.1/")
+                .baseUrl("http://192.168.0.125:8888/api/0.1/")
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

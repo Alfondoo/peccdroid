@@ -1,7 +1,7 @@
 package com.javialonso.peccdroid.presentation.presenter
 
+import android.support.annotation.NonNull
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
-import com.javialonso.peccdroid.domain.interactor.LoginUseCase
 import com.javialonso.peccdroid.domain.interactor.RegisterUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
 import com.javialonso.peccdroid.presentation.view.RegisterView
@@ -13,7 +13,7 @@ constructor(val registerUseCase: RegisterUseCase) : Presenter {
 
     private var registerView: RegisterView? = null
 
-    fun setView(view: RegisterView) {
+    fun setView(@NonNull view: RegisterView) {
         this.registerView = view
     }
 
@@ -27,25 +27,37 @@ constructor(val registerUseCase: RegisterUseCase) : Presenter {
     }
 
     fun registro(user: String, email: String, password: String, passwordConfirm: String) {
+        this.showProgressBar()
         this.registerUseCase.execute(RegisterObserver(), RegisterUseCase.Params(user, email, password, passwordConfirm))
     }
 
-    private fun error(message: String){
+    private fun error(message: String) {
         this.registerView?.showError(message)
+    }
+
+    private fun hideProgressBar() {
+        this.registerView?.hideProgressBar()
+    }
+
+    private fun showProgressBar() {
+        this.registerView?.showProgressBar()
     }
 
     private inner class RegisterObserver : DefaultObserver<String>() {
 
         override fun onComplete() {
             print("Okay")
+            hideProgressBar()
         }
 
         override fun onError(exception: Throwable) {
             error(exception.localizedMessage)
+            hideProgressBar()
         }
 
-        override fun onNext(t: String) {
+        override fun onSuccess(t: String) {
             print("Perfe")
+            hideProgressBar()
         }
     }
 }

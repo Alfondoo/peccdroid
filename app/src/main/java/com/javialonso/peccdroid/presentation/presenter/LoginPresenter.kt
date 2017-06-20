@@ -30,12 +30,16 @@ constructor(val loginUseCase: LoginUseCase) : Presenter {
         this.loginUseCase.execute(LoginObserver(), LoginUseCase.Params(user, password))
     }
 
-    private fun error(message: String){
+    private fun error(message: String) {
         this.loginView?.showError(message)
     }
 
-    fun registro(){
+    fun registro() {
         this.loginView?.navigateRegistro()
+    }
+
+    fun feed() {
+        this.loginView?.loginComplete()
     }
 
     private inner class LoginObserver : DefaultObserver<String>() {
@@ -46,10 +50,13 @@ constructor(val loginUseCase: LoginUseCase) : Presenter {
 
         override fun onError(exception: Throwable) {
             error(exception.localizedMessage)
+            //error((exception as HttpException).response())
         }
 
-        override fun onNext(t: String) {
+        override fun onSuccess(t: String) {
             print("Perfe")
+            error(t)
+            feed()
         }
     }
 }

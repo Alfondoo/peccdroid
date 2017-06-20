@@ -17,7 +17,6 @@ class MainActivity : BaseActivity(), HasComponent<AuthorizationComponent>, Login
         setContentView(R.layout.activity_layout)
         initializeInjector()
         addFragment(R.id.fragmentContainer, LoginFragment())
-
     }
 
     private fun initializeInjector() {
@@ -25,7 +24,7 @@ class MainActivity : BaseActivity(), HasComponent<AuthorizationComponent>, Login
     }
 
     override fun onLoginComplete() {
-        //toFragment(R.id.fragmentContainer, FeedFragment())
+        toActivity(FeedActivity::class.java)
     }
 
     override fun toRegister() {

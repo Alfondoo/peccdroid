@@ -2,13 +2,12 @@ package com.javialonso.peccdroid.presentation.view.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -23,8 +22,8 @@ import javax.inject.Inject
 class LoginFragment : BaseFragment(), LoginView {
     @Inject lateinit var loginPresenter: LoginPresenter
     internal var butterknifeBinder: Unbinder? = null
-    @BindView(R.id.et_username) @JvmField var username: EditText? = null
-    @BindView(R.id.et_password) @JvmField var password: EditText? = null
+    @BindView(R.id.et_username_login) @JvmField var username: TextInputEditText? = null
+    @BindView(R.id.et_password_login) @JvmField var password: TextInputEditText? = null
     @BindView(R.id.btn_login) @JvmField var btnLogin: Button? = null
 
     var loginListener: LoginListener? = null
@@ -40,7 +39,7 @@ class LoginFragment : BaseFragment(), LoginView {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if(context is LoginListener){
+        if (context is LoginListener) {
             this.loginListener = context
         }
     }
@@ -55,7 +54,6 @@ class LoginFragment : BaseFragment(), LoginView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.loginPresenter.setView(this)
-
     }
 
     override fun onResume() {
@@ -83,12 +81,12 @@ class LoginFragment : BaseFragment(), LoginView {
         super.onDetach()
     }
 
-    fun context(): Context {
-        return this.activity.applicationContext
+    override fun navigateRegistro() {
+        this.loginListener?.toRegister()
     }
 
-    override fun navigateRegistro(){
-        this.loginListener?.toRegister()
+    override fun loginComplete() {
+        this.loginListener?.onLoginComplete()
     }
 
     override fun showError(message: String) {
@@ -96,15 +94,14 @@ class LoginFragment : BaseFragment(), LoginView {
     }
 
     @OnClick(R.id.btn_login) internal fun onButtonLoginClick() {
-        Log.d("LoginFragment", username?.editableText.toString() + "-" + password?.editableText.toString())
         this.loginPresenter.login(username?.editableText.toString(), password?.editableText.toString())
     }
 
-    @OnClick(R.id.btn_registro_login) internal fun onButtonRegistroClick(){
+    @OnClick(R.id.btn_registro_login) internal fun onButtonRegistroClick() {
         this.loginPresenter.registro()
     }
 
-    interface LoginListener{
+    interface LoginListener {
         fun onLoginComplete()
 
         fun toRegister()

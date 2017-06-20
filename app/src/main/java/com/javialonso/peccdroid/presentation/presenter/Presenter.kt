@@ -1,6 +1,6 @@
 package com.javialonso.peccdroid.presentation.presenter
 
-interface Presenter{
+interface Presenter {
     fun pause()
     fun resume()
     fun destroy()

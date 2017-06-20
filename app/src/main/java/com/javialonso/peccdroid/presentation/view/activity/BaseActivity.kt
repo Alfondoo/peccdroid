@@ -1,5 +1,6 @@
 package com.javialonso.peccdroid.presentation.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -27,6 +28,12 @@ abstract class BaseActivity : AppCompatActivity() {
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
+
+    protected fun toActivity(activity: Class<*>) {
+        val intent = Intent(this, FeedActivity::class.java)
+        startActivity(intent)
+    }
+
     protected val applicationComponent: ApplicationComponent
         get() = (application as AndroidApplication).applicationComponent!!
 
