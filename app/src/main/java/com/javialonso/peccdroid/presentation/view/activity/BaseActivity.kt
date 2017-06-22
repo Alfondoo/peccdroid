@@ -30,6 +30,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun toActivity(activity: Class<*>) {
+        // TODO: Refactor
         val intent = Intent(this, FeedActivity::class.java)
         startActivity(intent)
     }

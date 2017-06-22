@@ -4,6 +4,7 @@ import android.content.Context
 import com.javialonso.peccdroid.domain.executor.PostExecutionThread
 import com.javialonso.peccdroid.domain.executor.ThreadExecutor
 import com.javialonso.peccdroid.domain.repository.AuthenticationRepository
+import com.javialonso.peccdroid.domain.repository.FeedRepository
 import com.javialonso.peccdroid.presentation.internal.di.module.ApplicationModule
 import com.javialonso.peccdroid.presentation.view.activity.BaseActivity
 import dagger.Component
@@ -21,4 +22,5 @@ interface ApplicationComponent {
     fun threadExecutor(): ThreadExecutor
     fun postExecutionThread(): PostExecutionThread
     fun authenticationRepository(): AuthenticationRepository
+    fun feedRepository(): FeedRepository
 }

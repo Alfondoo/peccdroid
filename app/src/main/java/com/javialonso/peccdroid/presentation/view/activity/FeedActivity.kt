@@ -9,6 +9,7 @@ import com.javialonso.peccdroid.presentation.internal.HasComponent
 import com.javialonso.peccdroid.presentation.internal.di.components.DaggerFeedComponent
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.FeedPresenter
+import com.javialonso.peccdroid.presentation.view.fragment.ProfileFragment
 import javax.inject.Inject
 
 class FeedActivity : BaseActivity(), HasComponent<FeedComponent> {
@@ -22,7 +23,7 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent> {
         setContentView(R.layout.activity_feed)
         initializeInjector()
         // TODO: Bottom Navigation
-        // addFragment(R.id.fragmentContainer, LoginFragment())
+        addFragment(R.id.fragmentFeedContainer, ProfileFragment())
     }
 
     private fun initializeInjector() {
