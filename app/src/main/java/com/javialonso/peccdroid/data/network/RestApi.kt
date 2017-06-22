@@ -31,7 +31,7 @@ class RestApi @Inject internal constructor() {
         httpClient.addInterceptor(logging)
 
         return Retrofit.Builder()
-                .baseUrl("http://192.168.0.125:8000/api/0.1/")
+                .baseUrl("http://192.168.1.8/api/0.1/")
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

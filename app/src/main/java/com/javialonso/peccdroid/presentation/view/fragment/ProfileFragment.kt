@@ -11,7 +11,6 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.javialonso.peccdroid.R
-import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.ProfilePresenter
 import com.javialonso.peccdroid.presentation.view.ProfileView
@@ -77,8 +76,9 @@ class ProfileFragment : BaseFragment(), ProfileView {
         this.profilePresenter.retrieveProfile()
     }
 
-    override fun updateProfileCard(profileEntity: ProfileEntity) {
-        this.username?.text = profileEntity.username
+    override fun updateProfileCard(profileEntity: String) {
+        this.username?.text = "fun"
+        this.historiasNumber?.text = "12"
     }
 
 }

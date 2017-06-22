@@ -1,5 +1,6 @@
 package com.javialonso.peccdroid.presentation.presenter
 
+import android.support.annotation.NonNull
 import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.ProfileUseCase
@@ -10,7 +11,7 @@ class ProfilePresenter @Inject internal constructor(val profileUseCase: ProfileU
 
     private var profileView: ProfileView? = null
 
-    fun setView(view: ProfileView) {
+    fun setView(@NonNull view: ProfileView) {
         this.profileView = view
     }
 
@@ -30,8 +31,8 @@ class ProfilePresenter @Inject internal constructor(val profileUseCase: ProfileU
         this.profileUseCase.execute(ProfileObserver(), Unit)
     }
 
-    private inner class ProfileObserver : DefaultObserver<ProfileEntity>() {
-        override fun onSuccess(t: ProfileEntity) {
+    private inner class ProfileObserver : DefaultObserver<String>() {
+        override fun onSuccess(t: String) {
             updateView(t)
         }
 
@@ -44,7 +45,7 @@ class ProfilePresenter @Inject internal constructor(val profileUseCase: ProfileU
         }
     }
 
-    private fun updateView(s: ProfileEntity) {
+    private fun updateView(s: String) {
         this.profileView?.updateProfileCard(s)
     }
 }

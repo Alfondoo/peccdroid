@@ -46,7 +46,7 @@ constructor(val registerUseCase: RegisterUseCase) : Presenter {
     private inner class RegisterObserver : DefaultObserver<String>() {
 
         override fun onComplete() {
-            print("Okay")
+
             hideProgressBar()
         }
 
@@ -56,7 +56,6 @@ constructor(val registerUseCase: RegisterUseCase) : Presenter {
         }
 
         override fun onSuccess(t: String) {
-            print("Perfe")
             hideProgressBar()
         }
     }
