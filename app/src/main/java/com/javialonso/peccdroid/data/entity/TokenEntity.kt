@@ -1,3 +1,5 @@
 package com.javialonso.peccdroid.data.entity
 
-data class TokenEntity(val token: String, val username: String)
+import com.google.gson.annotations.Expose
+
+data class TokenEntity(@Expose val token: String, val username: String)

@@ -4,5 +4,5 @@ import com.javialonso.peccdroid.data.entity.ProfileEntity
 import io.reactivex.Maybe
 
 interface FeedRepository {
-    fun profile(): Maybe<String>
+    fun profile(): Maybe<ProfileEntity>
 }

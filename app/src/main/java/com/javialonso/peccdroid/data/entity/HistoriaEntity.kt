@@ -1,5 +1,17 @@
 package com.javialonso.peccdroid.data.entity
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class HistoriaEntity(val titulo: String, val votos: Int, @SerializedName("puntuacion_media") val puntuacionMedia: Float, val limiteCaracteres: Int?, val minimoCaracteres: Int?, @SerializedName("criterios_aceptacion") val criteriosAceptacion: String?, val creador: String?, val id: Int, @SerializedName("reglas_aceptacion") val reglasAceptacion: ReglasAceptacion)
+data class HistoriaEntity(
+        @Expose val titulo: String,
+        @Expose val id: Int,
+        @Expose val votos: Int,
+        @Expose @SerializedName("puntuacion_media") val puntuacionMedia: Float,
+        @Expose val limiteCaracteres: Int,
+        @Expose val minimoCaracteres: Int,
+        @Expose @SerializedName("criterios_aceptacion") val criteriosAceptacion: String,
+        @Expose val creador: String,
+        @Expose @SerializedName("reglas_aceptacion") val reglasAceptacion: ReglasAceptacion,
+        @Expose @SerializedName("reglas_aportes") val reglasAportes: ReglasAportes
+)

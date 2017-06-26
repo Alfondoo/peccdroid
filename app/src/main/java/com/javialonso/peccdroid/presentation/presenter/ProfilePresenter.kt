@@ -31,8 +31,8 @@ class ProfilePresenter @Inject internal constructor(val profileUseCase: ProfileU
         this.profileUseCase.execute(ProfileObserver(), Unit)
     }
 
-    private inner class ProfileObserver : DefaultObserver<String>() {
-        override fun onSuccess(t: String) {
+    private inner class ProfileObserver : DefaultObserver<ProfileEntity>() {
+        override fun onSuccess(t: ProfileEntity) {
             updateView(t)
         }
 
@@ -41,11 +41,11 @@ class ProfilePresenter @Inject internal constructor(val profileUseCase: ProfileU
         }
 
         override fun onError(exception: Throwable) {
-            // no-op by default.
+
         }
     }
 
-    private fun updateView(s: String) {
+    private fun updateView(s: ProfileEntity) {
         this.profileView?.updateProfileCard(s)
     }
 }

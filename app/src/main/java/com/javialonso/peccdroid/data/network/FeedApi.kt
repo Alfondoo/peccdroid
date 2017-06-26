@@ -7,5 +7,5 @@ import retrofit2.http.Header
 
 interface FeedApi {
     @GET("perfil/")
-    fun profile(@Header("Authorization") token: String): Maybe<String>
+    fun profile(@Header("Authorization") token: String): Maybe<ProfileEntity>
 }

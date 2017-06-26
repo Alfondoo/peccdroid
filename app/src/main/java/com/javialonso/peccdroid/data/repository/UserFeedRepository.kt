@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Singleton
 class UserFeedRepository @Inject internal constructor(private val restApi: RestApi) : FeedRepository {
-    override fun profile(): Maybe<String> {
+    override fun profile(): Maybe<ProfileEntity> {
         val token = "Token " + restApi.authorizationToken
         return restApi.feedService.profile(token)
     }

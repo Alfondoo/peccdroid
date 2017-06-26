@@ -7,6 +7,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 import javax.inject.Singleton
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+
+
 
 
 @Singleton
@@ -30,10 +34,14 @@ class RestApi @Inject internal constructor() {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(logging)
 
+        val builder = GsonBuilder()
+        builder.excludeFieldsWithoutExposeAnnotation()
+        val gson = builder.create()
+
         return Retrofit.Builder()
                 .baseUrl("http://192.168.1.8/api/0.1/")
                 .client(httpClient.build())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }

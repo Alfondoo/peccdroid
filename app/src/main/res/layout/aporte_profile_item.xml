@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Puto texto largolarguisimo imparaplaindependientelargolarguisimo imparaplaindependientelargolarguisimo imparaplaindependientelargolarguisimo imparaplaindependiente"
+        android:maxLines="3"
+        android:ellipsize="end"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginRight="8dp"
+        android:id="@+id/tv_contenido_aporte_profile_vh" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Historia"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_contenido_aporte_profile_vh"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/tv_historia_aporte_profile_vh"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:id="@+id/iv_es_bifurcable_aporte_profile_vh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bifurcable"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_contenido_aporte_profile_vh"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_aceptado"
+        app:layout_constraintTop_toBottomOf="@+id/tv_contenido_aporte_profile_vh"
+        app:layout_constraintRight_toLeftOf="@+id/iv_es_bifurcable_aporte_profile_vh"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/iv_es_aceptado_aporte_profile_vh"/>
+</android.support.constraint.ConstraintLayout>

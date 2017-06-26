@@ -1,3 +1,12 @@
 package com.javialonso.peccdroid.data.entity
 
-data class ProfileEntity(val username: String, val email: String, val historias: List<String>, val aportes: List<String>, val puntuacionHistorias: List<String>, val puntuacionAportes: List<String>)
+import com.google.gson.annotations.Expose
+
+data class ProfileEntity(
+        @Expose val username: String,
+        val email: String,
+        @Expose val historias: List<HistoriaEntity>,
+        @Expose val aportes: List<AporteEntity>,
+        val puntuacionHistorias: List<String>,
+        val puntuacionAportes: List<String>
+)

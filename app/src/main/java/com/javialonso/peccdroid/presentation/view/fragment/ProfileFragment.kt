@@ -3,6 +3,10 @@ package com.javialonso.peccdroid.presentation.view.fragment
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +15,12 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.javialonso.peccdroid.R
+import com.javialonso.peccdroid.data.entity.AporteEntity
+import com.javialonso.peccdroid.data.entity.HistoriaEntity
+import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.ProfilePresenter
+import com.javialonso.peccdroid.presentation.view.AporteProfileAdapter
 import com.javialonso.peccdroid.presentation.view.ProfileView
 import javax.inject.Inject
 
@@ -24,6 +32,10 @@ class ProfileFragment : BaseFragment(), ProfileView {
     @BindView(R.id.tv_media_aportes_profile) @JvmField var aportesAvg: TextView? = null
     @BindView(R.id.tv_historias_num_profile) @JvmField var historiasNumber: TextView? = null
     @BindView(R.id.tv_media_historias_profile) @JvmField var historiasAvg: TextView? = null
+    @BindView(R.id.tv_aportes_profile_empty) @JvmField var aportesEmpty: TextView? = null
+    @BindView(R.id.rv_aportes_profile) @JvmField var aportesRecyclerView: RecyclerView? = null
+    @BindView(R.id.tv_historias_profile_empty) @JvmField var historiasEmpty: TextView? = null
+    @BindView(R.id.rv_historias_profile) @JvmField var historiasRecyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,9 +88,33 @@ class ProfileFragment : BaseFragment(), ProfileView {
         this.profilePresenter.retrieveProfile()
     }
 
-    override fun updateProfileCard(profileEntity: String) {
-        this.username?.text = "fun"
-        this.historiasNumber?.text = "12"
+    override fun updateProfileCard(profileEntity: ProfileEntity) {
+        Log.e("H", profileEntity.historias.toString())
+        Log.e("A", profileEntity.aportes.toString())
+        this.username?.text = profileEntity.username
+        this.historiasNumber?.text = profileEntity.historias.size.toString()
+        this.aportesNumber?.text = profileEntity.aportes.size.toString()
+        updateAportes(profileEntity.aportes)
+    }
+
+    private fun updateAportes(aportes: List<AporteEntity>) {
+        if (!aportes.isEmpty()) {
+            this.aportesRecyclerView?.adapter = AporteProfileAdapter(aportes)
+            this.aportesRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            this.aportesRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+            this.aportesEmpty?.visibility = View.GONE
+            this.aportesRecyclerView?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun updateHistorias(historias: List<HistoriaEntity>) {
+        if (!historias.isEmpty()) {
+            //this.historiasRecyclerView?.adapter = AporteProfileAdapter(aportes)
+            this.historiasRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            this.historiasRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+            this.historiasEmpty?.visibility = View.GONE
+            this.historiasEmpty?.visibility = View.VISIBLE
+        }
     }
 
 }
