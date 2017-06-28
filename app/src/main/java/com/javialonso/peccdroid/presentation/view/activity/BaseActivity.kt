@@ -22,10 +22,12 @@ abstract class BaseActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    protected fun toFragment(containerViewId: Int, fragment: Fragment) {
+    protected fun toFragment(containerViewId: Int, fragment: Fragment, isStackable: Boolean = true) {
         val fragmentTransaction = this.supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(containerViewId, fragment)
-        fragmentTransaction.addToBackStack(null)
+        if (isStackable) {
+            fragmentTransaction.addToBackStack(null)
+        }
         fragmentTransaction.commit()
     }
 

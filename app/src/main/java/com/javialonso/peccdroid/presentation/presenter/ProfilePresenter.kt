@@ -4,10 +4,13 @@ import android.support.annotation.NonNull
 import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.ProfileUseCase
+import com.javialonso.peccdroid.presentation.internal.PerActivity
 import com.javialonso.peccdroid.presentation.view.fragment.ProfileView
 import javax.inject.Inject
 
-class ProfilePresenter @Inject internal constructor(val profileUseCase: ProfileUseCase) : Presenter {
+@PerActivity
+class ProfilePresenter @Inject
+constructor(val profileUseCase: ProfileUseCase) : Presenter {
 
     private var profileView: ProfileView? = null
 
@@ -20,7 +23,8 @@ class ProfilePresenter @Inject internal constructor(val profileUseCase: ProfileU
     }
 
     override fun destroy() {
-
+        // this.profileUseCase.dispose()
+        this.profileView = null
     }
 
     override fun resume() {
