@@ -15,7 +15,6 @@ import butterknife.Unbinder
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.presentation.internal.di.components.AuthorizationComponent
 import com.javialonso.peccdroid.presentation.presenter.RegisterPresenter
-import com.javialonso.peccdroid.presentation.view.RegisterView
 import javax.inject.Inject
 
 

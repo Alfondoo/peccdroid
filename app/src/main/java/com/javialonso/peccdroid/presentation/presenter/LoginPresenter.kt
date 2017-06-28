@@ -3,7 +3,7 @@ package com.javialonso.peccdroid.presentation.presenter
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.LoginUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
-import com.javialonso.peccdroid.presentation.view.LoginView
+import com.javialonso.peccdroid.presentation.view.fragment.LoginView
 import javax.inject.Inject
 
 

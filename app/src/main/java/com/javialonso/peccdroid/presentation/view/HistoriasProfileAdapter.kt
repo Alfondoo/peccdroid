@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.data.entity.HistoriaEntity
+import java.text.DecimalFormat
 
 class HistoriasProfileAdapter(val items: List<HistoriaEntity>) : RecyclerView.Adapter<HistoriasProfileAdapter.HistoriaProfileViewHolder>() {
 
@@ -17,7 +18,7 @@ class HistoriasProfileAdapter(val items: List<HistoriaEntity>) : RecyclerView.Ad
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoriaProfileViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return HistoriaProfileViewHolder(layoutInflater.inflate(R.layout.aporte_profile_item, parent, false))
+        return HistoriaProfileViewHolder(layoutInflater.inflate(R.layout.historia_profile_item, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -25,12 +26,12 @@ class HistoriasProfileAdapter(val items: List<HistoriaEntity>) : RecyclerView.Ad
     }
 
     class HistoriaProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val contenido = itemView.findViewById<TextView>(R.id.tv_contenido_aporte_profile_vh)
-        val historia = itemView.findViewById<TextView>(R.id.tv_historia_aporte_profile_vh)
+        val titulo = itemView.findViewById<TextView>(R.id.tv_titulo_historia_profile_vh)
+        val puntuacion = itemView.findViewById<TextView>(R.id.tv_puntuacion_historia_profile_vh)
 
         fun bindItem(historia: HistoriaEntity) {
-            //contenido.text = aporte.contenido
-            //historia.text = aporte.historia.titulo
+            titulo.text = historia.titulo
+            puntuacion.text = DecimalFormat("#.##").format(historia.puntuacionMedia).toString()
         }
     }
 }

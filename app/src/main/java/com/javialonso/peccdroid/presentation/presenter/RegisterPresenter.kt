@@ -4,7 +4,7 @@ import android.support.annotation.NonNull
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.RegisterUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
-import com.javialonso.peccdroid.presentation.view.RegisterView
+import com.javialonso.peccdroid.presentation.view.fragment.RegisterView
 import javax.inject.Inject
 
 @PerActivity

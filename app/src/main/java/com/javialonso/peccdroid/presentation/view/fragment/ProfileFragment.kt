@@ -21,7 +21,7 @@ import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.ProfilePresenter
 import com.javialonso.peccdroid.presentation.view.AporteProfileAdapter
-import com.javialonso.peccdroid.presentation.view.ProfileView
+import com.javialonso.peccdroid.presentation.view.HistoriasProfileAdapter
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileView {
@@ -94,14 +94,18 @@ class ProfileFragment : BaseFragment(), ProfileView {
         this.username?.text = profileEntity.username
         this.historiasNumber?.text = profileEntity.historias.size.toString()
         this.aportesNumber?.text = profileEntity.aportes.size.toString()
+        // TODO; Round puntuacion media.
         updateAportes(profileEntity.aportes)
+        updateHistorias(profileEntity.historias)
     }
 
     private fun updateAportes(aportes: List<AporteEntity>) {
         if (!aportes.isEmpty()) {
             this.aportesRecyclerView?.adapter = AporteProfileAdapter(aportes)
             this.aportesRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            this.aportesRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+            if (aportes.size > 1) {
+                this.aportesRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+            }
             this.aportesEmpty?.visibility = View.GONE
             this.aportesRecyclerView?.visibility = View.VISIBLE
         }
@@ -109,11 +113,13 @@ class ProfileFragment : BaseFragment(), ProfileView {
 
     private fun updateHistorias(historias: List<HistoriaEntity>) {
         if (!historias.isEmpty()) {
-            //this.historiasRecyclerView?.adapter = AporteProfileAdapter(aportes)
+            this.historiasRecyclerView?.adapter = HistoriasProfileAdapter(historias)
             this.historiasRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            this.historiasRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+            if (historias.size > 1) {
+                this.historiasRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+            }
             this.historiasEmpty?.visibility = View.GONE
-            this.historiasEmpty?.visibility = View.VISIBLE
+            this.historiasRecyclerView?.visibility = View.VISIBLE
         }
     }
 
