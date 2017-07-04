@@ -39,7 +39,7 @@ class RestApi @Inject internal constructor() {
         val debugServerWin = "http://192.168.1.8/api/0.1/"
 
         return Retrofit.Builder()
-                .baseUrl(debugServerWin)
+                .baseUrl(debugServerMac)
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

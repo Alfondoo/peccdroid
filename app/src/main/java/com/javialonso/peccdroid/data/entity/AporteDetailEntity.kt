@@ -11,5 +11,6 @@ data class AporteDetailEntity(
         @Expose @SerializedName("es_aceptado") val esAceptado: Boolean,
         @Expose @SerializedName("es_bifurcable") val esBifurcable: Boolean,
         @Expose @SerializedName("puntuacion_media") val puntuacionMedia: Float,
-        @Expose val creacion: Date
+        @Expose val creacion: Date,
+        @Expose val autor: String
 )
