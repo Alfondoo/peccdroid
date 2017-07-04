@@ -9,27 +9,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.javialonso.peccdroid.R
+import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.HistoriasPresenter
-import com.javialonso.peccdroid.presentation.view.HistoriasProfileAdapter
+import com.javialonso.peccdroid.presentation.view.HistoriasViewAdapter
 import javax.inject.Inject
 
 class HistoriasFragment : BaseFragment(), HistoriasView {
-
-    @BindView(R.id.rv_historias_view) @JvmField var historiasRecyclerView: RecyclerView? = null
-
-    override fun showError(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
-    }
-
     @Inject lateinit var historiasPresenter: HistoriasPresenter
+    @BindView(R.id.rv_historias_view) @JvmField var historiasRecyclerView: RecyclerView? = null
     var butterknifeBinder: Unbinder? = null
+
+    var historiasListener: HistoriasListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +34,9 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        if (context is HistoriasFragment.HistoriasListener) {
+            this.historiasListener = context
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -50,13 +49,12 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.historiasPresenter.setView(this)
-        this.historiasRecyclerView?.adapter = HistoriasProfileAdapter(items = ArrayList<HistoriaEntity>())
-        this.historiasRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         retrieveHistorias()
+        this.historiasRecyclerView?.adapter = HistoriasViewAdapter(ArrayList<HistoriaEntity>())
+        this.historiasRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun retrieveHistorias() {
-        Log.e("HistoriasFragment", "retrieveHistorias")
         this.historiasPresenter.historias()
     }
 
@@ -87,6 +85,29 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
     }
 
     override fun updateHistoriasList(historias: List<HistoriaEntity>) {
-        this.historiasRecyclerView?.adapter = HistoriasProfileAdapter(historias)
+        val historiaAdapter = HistoriasViewAdapter(historias)
+        historiaAdapter.onItemClickListener = onItemClickListener
+        this.historiasRecyclerView?.adapter = historiaAdapter
+    }
+
+    override fun showError(message: String) {
+        showToastMessage(message)
+    }
+
+    private val onItemClickListener = object : HistoriasViewAdapter.OnItemClickListener {
+        override fun onHistoriaItemClicked(historia: HistoriaEntity) {
+            if (this@HistoriasFragment.historiasPresenter != null && historia != null) {
+                this@HistoriasFragment.historiasPresenter.onHistoriaClicked(historia)
+            }
+        }
+    }
+
+    override fun toDetailHistoria(historia: HistoriaEntity) {
+        this.historiasListener?.viewHistoriaDetail(historia.id)
+    }
+
+
+    interface HistoriasListener {
+        fun viewHistoriaDetail(id: Int)
     }
 }

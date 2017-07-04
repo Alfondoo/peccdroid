@@ -3,7 +3,7 @@ package com.javialonso.peccdroid.data.entity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class HistoriaEntity(
+data class HistoriaDetailEntity(
         @Expose val titulo: String,
         @Expose val id: Int,
         @Expose val votos: Int,
@@ -13,5 +13,6 @@ data class HistoriaEntity(
         @Expose @SerializedName("criterios_aceptacion") val criteriosAceptacion: String,
         @Expose val creador: String,
         @Expose @SerializedName("reglas_aceptacion") val reglasAceptacion: ReglasAceptacion,
-        @Expose @SerializedName("reglas_aportes") val reglasAportes: ReglasAportes
+        @Expose @SerializedName("reglas_aportes") val reglasAportes: ReglasAportes,
+        @Expose val aportes: List<AporteDetailEntity>
 )

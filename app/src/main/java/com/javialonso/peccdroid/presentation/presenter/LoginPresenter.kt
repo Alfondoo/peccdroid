@@ -1,5 +1,6 @@
 package com.javialonso.peccdroid.presentation.presenter
 
+import android.support.annotation.NonNull
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.LoginUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
@@ -9,7 +10,7 @@ import javax.inject.Inject
 
 @PerActivity
 class LoginPresenter @Inject
-constructor(val loginUseCase: LoginUseCase) : Presenter {
+constructor(@NonNull val loginUseCase: LoginUseCase) : Presenter {
 
     private var loginView: LoginView? = null
 

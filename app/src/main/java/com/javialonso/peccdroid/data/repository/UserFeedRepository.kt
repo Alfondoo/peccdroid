@@ -1,5 +1,6 @@
 package com.javialonso.peccdroid.data.repository
 
+import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaEntity
 import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.data.network.RestApi
@@ -21,4 +22,8 @@ class UserFeedRepository @Inject internal constructor(private val restApi: RestA
         return restApi.feedService.profile(token)
     }
 
+    override fun detailHistoria(id: Int): Maybe<HistoriaDetailEntity> {
+        val token = "Token " + restApi.authorizationToken
+        return restApi.feedService.detailHistoria(token, id)
+    }
 }

@@ -9,12 +9,12 @@ import com.javialonso.peccdroid.presentation.internal.HasComponent
 import com.javialonso.peccdroid.presentation.internal.di.components.DaggerFeedComponent
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.FeedPresenter
+import com.javialonso.peccdroid.presentation.view.fragment.HistoriaDetailFragment
 import com.javialonso.peccdroid.presentation.view.fragment.HistoriasFragment
 import com.javialonso.peccdroid.presentation.view.fragment.ProfileFragment
 import javax.inject.Inject
 
-class FeedActivity : BaseActivity(), HasComponent<FeedComponent> {
-
+class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragment.HistoriasListener {
     override lateinit var component: FeedComponent
     @Inject lateinit var feedPresenter: FeedPresenter
     @BindView(R.id.bnav_feed_activity) @JvmField var bottomNavigation: BottomNavigationView? = null
@@ -41,5 +41,13 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent> {
 
     private fun initializeInjector() {
         component = DaggerFeedComponent.builder().applicationComponent(applicationComponent).activityModule(activityModule).build()
+    }
+
+    override fun viewHistoriaDetail(id: Int) {
+        val fragment = HistoriaDetailFragment()
+        val bundleData = Bundle()
+        bundleData.putInt("id", id)
+        fragment.arguments = bundleData
+        this.toFragment(R.id.fragmentFeedContainer, fragment, true)
     }
 }

@@ -7,4 +7,6 @@ interface HistoriasView : BaseView {
 
     fun updateHistoriasList(historias: List<HistoriaEntity>)
 
+    fun toDetailHistoria(historia: HistoriaEntity)
+
 }

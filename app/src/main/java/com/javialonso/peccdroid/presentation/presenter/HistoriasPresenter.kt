@@ -9,8 +9,8 @@ import com.javialonso.peccdroid.presentation.view.fragment.HistoriasView
 import javax.inject.Inject
 
 @PerActivity
-class HistoriasPresenter @Inject
-constructor(val historiasUseCase: HistoriasUseCase) : Presenter {
+class HistoriasPresenter
+@Inject constructor(val historiasUseCase: HistoriasUseCase) : Presenter {
 
     private var historiasView: HistoriasView? = null
 
@@ -31,6 +31,10 @@ constructor(val historiasUseCase: HistoriasUseCase) : Presenter {
         this.historiasUseCase.execute(HistoriasObserver(), Unit)
     }
 
+    fun onHistoriaClicked(historia: HistoriaEntity) {
+        this.historiasView?.toDetailHistoria(historia)
+    }
+
     private inner class HistoriasObserver : DefaultObserver<List<HistoriaEntity>>() {
 
         override fun onError(exception: Throwable) {
@@ -38,7 +42,6 @@ constructor(val historiasUseCase: HistoriasUseCase) : Presenter {
         }
 
         override fun onComplete() {
-            print("")
         }
 
         override fun onSuccess(t: List<HistoriaEntity>) {
