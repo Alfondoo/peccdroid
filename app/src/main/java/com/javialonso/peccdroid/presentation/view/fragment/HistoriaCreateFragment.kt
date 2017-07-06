@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.Spinner
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -30,6 +31,9 @@ class HistoriaCreateFragment : BaseFragment(), HistoriaCreateView {
     @BindView(R.id.et_titulo_historia_create) @JvmField var titulo: TextInputEditText? = null
     @BindView(R.id.et_criterios_aporte_historia_create) @JvmField var criteriosAceptacion: TextInputEditText? = null
     @BindView(R.id.et_contenido_aporte_historia_create) @JvmField var contenido: TextInputEditText? = null
+    @BindView(R.id.cb_historia_create) @JvmField var esBifurcable: CheckBox? = null
+
+    var historiaCreateListener: HistoriaCreateListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,9 @@ class HistoriaCreateFragment : BaseFragment(), HistoriaCreateView {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        if (context is HistoriaCreateListener) {
+            this.historiaCreateListener = context
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -100,6 +107,16 @@ class HistoriaCreateFragment : BaseFragment(), HistoriaCreateView {
         val criteriosAceptacion = criteriosAceptacion?.text.toString()
         val reglasAportes = ReglasAportes.valueOf(reglasAportes?.selectedItem.toString())
         val reglasAceptacion = ReglasAceptacion.valueOf(reglasAceptacion?.selectedItem.toString())
-        historiaCreatePresenter.historiaCreate(titulo = titulo, contenido = contenido, esBifurcable = true)
+        var esBifurcable = false
+        this.esBifurcable?.let { esBifurcable = it.isChecked }
+        historiaCreatePresenter.historiaCreate(titulo = titulo, contenido = contenido, esBifurcable = esBifurcable, reglasAportes = reglasAportes, reglasAceptacion = reglasAceptacion, criteriosAceptacion = criteriosAceptacion)
+    }
+
+    override fun toHistoriasList() {
+        this.historiaCreateListener?.navigateToHistoriasList()
+    }
+
+    interface HistoriaCreateListener {
+        fun navigateToHistoriasList()
     }
 }

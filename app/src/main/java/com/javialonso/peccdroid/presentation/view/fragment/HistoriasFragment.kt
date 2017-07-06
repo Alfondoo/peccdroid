@@ -2,8 +2,8 @@ package com.javialonso.peccdroid.presentation.view.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -52,6 +52,7 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
         retrieveHistorias()
         this.historiasRecyclerView?.adapter = HistoriasViewAdapter(ArrayList<HistoriaEntity>())
         this.historiasRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        this.historiasRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
     }
 
     private fun retrieveHistorias() {

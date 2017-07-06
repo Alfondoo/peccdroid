@@ -2,8 +2,8 @@ package com.javialonso.peccdroid.presentation.internal.di.module
 
 import android.content.Context
 import com.javialonso.peccdroid.data.JobExecutor
-import com.javialonso.peccdroid.data.repository.UserAuthenticationRepository
-import com.javialonso.peccdroid.data.repository.UserFeedRepository
+import com.javialonso.peccdroid.data.repository.RetrofitAuthenticationRepository
+import com.javialonso.peccdroid.data.repository.RetrofitFeedRepository
 import com.javialonso.peccdroid.domain.executor.PostExecutionThread
 import com.javialonso.peccdroid.domain.executor.ThreadExecutor
 import com.javialonso.peccdroid.domain.repository.AuthenticationRepository
@@ -30,12 +30,12 @@ class ApplicationModule(private val application: AndroidApplication) {
         return uiThread
     }
 
-    @Provides @Singleton internal fun provideAuthenticationRepository(userAuthenticationRepository: UserAuthenticationRepository): AuthenticationRepository {
-        return userAuthenticationRepository
+    @Provides @Singleton internal fun provideAuthenticationRepository(retrofitAuthenticationRepository: RetrofitAuthenticationRepository): AuthenticationRepository {
+        return retrofitAuthenticationRepository
     }
 
-    @Provides @Singleton internal fun provideFeedRepository(userFeedRepository: UserFeedRepository): FeedRepository {
-        return userFeedRepository
+    @Provides @Singleton internal fun provideFeedRepository(retrofitFeedRepository: RetrofitFeedRepository): FeedRepository {
+        return retrofitFeedRepository
     }
 
 }

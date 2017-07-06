@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class UserFeedRepository @Inject internal constructor(private val restApi: RestApi) : FeedRepository {
+class RetrofitFeedRepository @Inject internal constructor(private val restApi: RestApi) : FeedRepository {
     override fun historias(): Maybe<List<HistoriaEntity>> {
         val token = "Token " + restApi.authorizationToken
         return restApi.feedService.historias(token)

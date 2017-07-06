@@ -18,9 +18,10 @@ class RestApi @Inject internal constructor() {
     val feedService: FeedApi = retrofit.create(FeedApi::class.java)
     var authorizationToken: String? = null
 
-    fun setAuthorizationToken(authToken: String): String? {
+    fun setAuthorizationToken(authToken: String): String {
         authorizationToken = authToken
-        return authorizationToken
+        authorizationToken?.let { return it }
+        return ""
     }
 
     private fun getApiClient(): Retrofit {
@@ -39,7 +40,7 @@ class RestApi @Inject internal constructor() {
         val debugServerWin = "http://192.168.1.8/api/0.1/"
 
         return Retrofit.Builder()
-                .baseUrl(debugServerWin)
+                .baseUrl(debugServerMac)
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +24,7 @@ import com.javialonso.peccdroid.presentation.view.adapter.HistoriasProfileAdapte
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileView {
+
     @Inject lateinit var profilePresenter: ProfilePresenter
     private var butterknifeBinder: Unbinder? = null
     @BindView(R.id.tv_username_profile) @JvmField var username: TextView? = null
@@ -89,8 +89,6 @@ class ProfileFragment : BaseFragment(), ProfileView {
     }
 
     override fun updateProfileCard(profileEntity: ProfileEntity) {
-        Log.e("H", profileEntity.historias.toString())
-        Log.e("A", profileEntity.aportes.toString())
         this.username?.text = profileEntity.username
         this.historiasNumber?.text = profileEntity.historias.size.toString()
         this.aportesNumber?.text = profileEntity.aportes.size.toString()

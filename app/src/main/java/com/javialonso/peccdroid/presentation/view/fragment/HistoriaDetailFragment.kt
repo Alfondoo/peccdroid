@@ -17,6 +17,7 @@ import butterknife.Unbinder
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.data.entity.AporteDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
+import com.javialonso.peccdroid.presentation.component.SharedPreferencesTokenStorage
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.HistoriaDetailPresenter
 import com.javialonso.peccdroid.presentation.view.AporteSelectionCard
@@ -26,7 +27,6 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 
 class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
-
     @Inject lateinit var historiaDetailPresenter: HistoriaDetailPresenter
     @BindView(R.id.tv_titulo_historia_detail) @JvmField var titulo: TextView? = null
     @BindView(R.id.tv_creador_historia_detail) @JvmField var creador: TextView? = null
@@ -37,6 +37,8 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
     @BindView(R.id.tv_criterios_aceptacion_valor_historia_detail) @JvmField var criteriosAceptacion: TextView? = null
     @BindView(R.id.rv_aportes_historia_detail) @JvmField var aportes: RecyclerView? = null
     @BindView(R.id.ll_btn_container_historia_detail) @JvmField var navigationAportesContainer: LinearLayout? = null
+    @BindView(R.id.btn_admin_historia_detail) @JvmField var adminAportesHistoria: Button? = null
+
     var butterknifeBinder: Unbinder? = null
     private var aportesVisibles: MutableList<AporteDetailEntity> = ArrayList()
     private var aportesExistentes: List<AporteDetailEntity> = ArrayList()
@@ -60,6 +62,7 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.historiaDetailPresenter.setView(this)
+        this.historiaDetailPresenter.setTokenStorage(SharedPreferencesTokenStorage(activity))
         aportes?.adapter = AporteDetailAdapter(aportesVisibles)
         aportes?.layoutManager = StaticLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         this.arguments?.getInt("id")?.let { this.historiaDetailPresenter.historiaDetail(it) }
@@ -121,7 +124,6 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
         }
         if (aporte.esBifurcable || aportesHijos.isEmpty()) {
             val addButton = Button(activity)
-            // TODO: Añadir aporte
             addButton.text = "Escribir nuevo aporte"
             addButton.setBackgroundResource(R.drawable.abc_btn_borderless_material)
             val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -142,5 +144,9 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
             aportesVisibles.add(aporte)
         }
         aportes?.adapter?.notifyDataSetChanged()
+    }
+
+    override fun showCreatorControls() {
+        adminAportesHistoria?.visibility = View.VISIBLE
     }
 }

@@ -2,7 +2,6 @@ package com.javialonso.peccdroid.presentation.view.activity
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.util.Log
 import butterknife.BindView
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.presentation.internal.HasComponent
@@ -15,7 +14,7 @@ import com.javialonso.peccdroid.presentation.view.fragment.HistoriasFragment
 import com.javialonso.peccdroid.presentation.view.fragment.ProfileFragment
 import javax.inject.Inject
 
-class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragment.HistoriasListener {
+class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragment.HistoriasListener, HistoriaCreateFragment.HistoriaCreateListener {
 
 
     override lateinit var component: FeedComponent
@@ -27,7 +26,6 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragm
         setContentView(R.layout.activity_feed)
         bottomNavigation = findViewById(R.id.bnav_feed_activity) as BottomNavigationView?
         initializeInjector()
-        // TODO: Bottom Navigation
         bottomNavigation?.setOnNavigationItemSelectedListener(
                 { item ->
                     when (item.itemId) {
@@ -53,5 +51,9 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragm
 
     override fun viewCreateHistoria() {
         this.toFragment(R.id.fragmentFeedContainer, HistoriaCreateFragment(), true)
+    }
+
+    override fun navigateToHistoriasList() {
+        this.popFragment()
     }
 }

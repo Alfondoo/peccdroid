@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,8 +12,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Titulo"
+        android:textColor="#212121"
         android:textSize="25sp"
-        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,14 +23,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="0dp"
         android:text="Creador"
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_titulo_historia_view_vh"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/tv_puntuacion_historia_view_vh"
@@ -43,20 +42,19 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_puntuacion_historia_view_vh"
         app:layout_constraintRight_toLeftOf="@+id/iv_puntuacion_historia_view_vh"
-        app:layout_constraintTop_toTopOf="@+id/iv_puntuacion_historia_view_vh" />
+        app:layout_constraintTop_toTopOf="@+id/iv_puntuacion_historia_view_vh"
+        android:layout_marginEnd="8dp" />
 
     <ImageView
         android:id="@+id/iv_puntuacion_historia_view_vh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/ic_puntuacion"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        android:layout_marginRight="16dp" />
 
 
     <TextView
@@ -70,7 +68,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_creador_historia_view_vh"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/tv_aportes_reglas_historias_view_vh"
@@ -82,34 +81,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_creador_historia_view_vh"
         app:layout_constraintVertical_bias="0.0"
-        android:layout_marginLeft="48dp"
-        app:layout_constraintLeft_toLeftOf="@+id/iv_autor_historia_view_vh" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.6" />
 
     <ImageView
         android:id="@+id/iv_auto_historia_view_vh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="0dp"
         android:src="@drawable/ic_auto"
         app:layout_constraintBottom_toBottomOf="@+id/tv_reglas_historia_view_vh"
         app:layout_constraintLeft_toRightOf="@+id/tv_reglas_historia_view_vh"
         app:layout_constraintTop_toTopOf="@+id/tv_reglas_historia_view_vh"
-        app:layout_constraintVertical_bias="0.5" />
+        android:layout_marginStart="8dp" />
 
     <ImageView
         android:id="@+id/iv_autor_historia_view_vh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="0dp"
         android:src="@drawable/ic_autor"
         app:layout_constraintBottom_toBottomOf="@+id/tv_reglas_historia_view_vh"
         app:layout_constraintLeft_toRightOf="@+id/tv_reglas_historia_view_vh"
         app:layout_constraintTop_toTopOf="@+id/tv_reglas_historia_view_vh"
-        app:layout_constraintVertical_bias="0.5"
         android:visibility="gone"/>
 
     <TextView
@@ -120,6 +115,7 @@
         app:layout_constraintLeft_toRightOf="@+id/tv_aportes_reglas_historias_view_vh"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_creador_historia_view_vh" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_creador_historia_view_vh"
+        android:layout_marginStart="8dp" />
 
 </android.support.constraint.ConstraintLayout>

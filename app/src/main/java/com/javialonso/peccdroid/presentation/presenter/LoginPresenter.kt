@@ -1,6 +1,8 @@
 package com.javialonso.peccdroid.presentation.presenter
 
 import android.support.annotation.NonNull
+import com.javialonso.peccdroid.data.entity.TokenEntity
+import com.javialonso.peccdroid.data.storage.TokenStorage
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.LoginUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
@@ -13,9 +15,14 @@ class LoginPresenter @Inject
 constructor(@NonNull val loginUseCase: LoginUseCase) : Presenter {
 
     private var loginView: LoginView? = null
+    private var tokenStorage: TokenStorage? = null
 
     fun setView(view: LoginView) {
         this.loginView = view
+    }
+
+    fun setTokenStorage(tokenStorage: TokenStorage) {
+        this.tokenStorage = tokenStorage
     }
 
     override fun resume() {}
@@ -39,11 +46,11 @@ constructor(@NonNull val loginUseCase: LoginUseCase) : Presenter {
         this.loginView?.navigateRegistro()
     }
 
-    fun feed() {
+    fun toFeed() {
         this.loginView?.loginComplete()
     }
 
-    private inner class LoginObserver : DefaultObserver<String>() {
+    private inner class LoginObserver : DefaultObserver<TokenEntity>() {
 
         override fun onComplete() {
             print("Okay")
@@ -54,10 +61,11 @@ constructor(@NonNull val loginUseCase: LoginUseCase) : Presenter {
             //error((exception as HttpException).response())
         }
 
-        override fun onSuccess(t: String) {
+        override fun onSuccess(t: TokenEntity) {
             print("Perfe")
-            error(t)
-            feed()
+            this@LoginPresenter.error(t.toString())
+            this@LoginPresenter.tokenStorage?.saveData(t)
+            toFeed()
         }
     }
 }

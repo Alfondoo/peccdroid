@@ -4,4 +4,5 @@ import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
 
 interface HistoriaDetailView {
     fun updateView(historia: HistoriaDetailEntity)
+    fun showCreatorControls()
 }

@@ -1,118 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_titulo_historia_create"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_titulo_historia_create"
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_titulo_historia_create"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Titulo"
-            android:inputType="text" />
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_titulo_historia_create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Titulo"
+                android:inputType="text" />
 
-    <Spinner
-        android:id="@+id/sp_reglas_aceptacion_historia_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/til_titulo_historia_create"
-        app:layout_constraintRight_toLeftOf="@+id/sp_reglas_aportes_historia_create"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        </android.support.design.widget.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/sp_reglas_aportes_historia_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/til_titulo_historia_create"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/sp_reglas_aceptacion_historia_create"/>
+        <Spinner
+            android:id="@+id/sp_reglas_aceptacion_historia_create"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_reglas_aceptacion_historia_create"
+            app:layout_constraintRight_toRightOf="@+id/tv_reglas_aceptacion_historia_create"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reglas_aceptacion_historia_create" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_criterios_aporte_historia_create"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sp_reglas_aceptacion_historia_create">
+        <Spinner
+            android:id="@+id/sp_reglas_aportes_historia_create"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_reglas_aportes_historia_create"
+            app:layout_constraintRight_toRightOf="@+id/tv_reglas_aportes_historia_create"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reglas_aportes_historia_create" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_criterios_aporte_historia_create"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Criterios de aceptación"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="1000"
-            android:maxLines="4" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_criterios_aporte_historia_create"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_reglas_aceptacion_historia_create">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_criterios_aporte_historia_create"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Criterios de aceptación"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="1000"
+                android:maxLines="8" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_contenido_aporte_historia_create"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_criterios_aporte_historia_create">
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_contenido_aporte_historia_create"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Contenido del primer aporte"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="4" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_contenido_aporte_historia_create"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_criterios_aporte_historia_create">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_contenido_aporte_historia_create"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Contenido del primer aporte"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="2000"
+                android:maxLines="8" />
 
-    <Button
-        android:id="@+id/btn_historia_create"
-        style="@style/ColorButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Crear historia"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_contenido_aporte_historia_create" />
+        </android.support.design.widget.TextInputLayout>
 
-    <ProgressBar
-        android:id="@+id/pb_historia_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_contenido_aporte_historia_create" />
+        <CheckBox
+            android:id="@+id/cb_historia_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Es bifurcable?"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/til_contenido_aporte_historia_create"
+            android:layout_marginLeft="24dp"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_historia_create"
+            style="@style/ColorButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Crear historia"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/cb_historia_create" />
+
+        <ProgressBar
+            android:id="@+id/pb_historia_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_contenido_aporte_historia_create" />
+
+        <TextView
+            android:id="@+id/tv_reglas_aportes_historia_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Reglas de Aportes"
+            app:layout_constraintLeft_toRightOf="@+id/tv_reglas_aceptacion_historia_create"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_titulo_historia_create" />
+
+        <TextView
+            android:id="@+id/tv_reglas_aceptacion_historia_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Reglas de Aceptación"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_reglas_aportes_historia_create"
+            app:layout_constraintTop_toBottomOf="@+id/til_titulo_historia_create" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

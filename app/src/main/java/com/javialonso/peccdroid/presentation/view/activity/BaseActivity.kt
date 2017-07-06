@@ -31,6 +31,10 @@ abstract class BaseActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    protected fun popFragment() {
+        val fragmentTransaction = this.supportFragmentManager.popBackStack()
+    }
+
     protected fun toActivity(activity: Class<*>) {
         // TODO: Refactor
         val intent = Intent(this, FeedActivity::class.java)

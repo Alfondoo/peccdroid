@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.data.entity.AporteEntity
+import com.javialonso.peccdroid.data.helpers.DateHelper
 import java.text.DecimalFormat
 
 class AporteProfileAdapter(val items: List<AporteEntity>) : RecyclerView.Adapter<AporteProfileAdapter.AporteProfileViewHolder>() {
@@ -54,9 +55,7 @@ class AporteProfileAdapter(val items: List<AporteEntity>) : RecyclerView.Adapter
                 noEsBifurcable.visibility = View.VISIBLE
             }
             puntuacionMedia.text = DecimalFormat("#.##").format(aporte.puntuacionMedia).toString()
-//            creacion.text = {
-//
-//            }.toString()
+            creacion.text = DateHelper().getTimeAgo(aporte.creacion)
         }
     }
 }

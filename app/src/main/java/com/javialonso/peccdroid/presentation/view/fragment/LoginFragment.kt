@@ -13,6 +13,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Unbinder
 import com.javialonso.peccdroid.R
+import com.javialonso.peccdroid.presentation.component.SharedPreferencesTokenStorage
 import com.javialonso.peccdroid.presentation.internal.di.components.AuthorizationComponent
 import com.javialonso.peccdroid.presentation.presenter.LoginPresenter
 import javax.inject.Inject
@@ -53,6 +54,7 @@ class LoginFragment : BaseFragment(), LoginView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.loginPresenter.setView(this)
+        this.loginPresenter.setTokenStorage(SharedPreferencesTokenStorage(activity))
     }
 
     override fun onResume() {

@@ -1,10 +1,7 @@
 package com.javialonso.peccdroid.presentation.presenter
 
 import android.support.annotation.NonNull
-import android.util.Log
-import com.javialonso.peccdroid.data.entity.AportePadreEntity
-import com.javialonso.peccdroid.data.entity.HistoriaCreationEntity
-import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
+import com.javialonso.peccdroid.data.entity.*
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.HistoriaCreateUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
@@ -14,6 +11,7 @@ import javax.inject.Inject
 @PerActivity
 class HistoriaCreatePresenter
 @Inject constructor(private val historiaCreateUseCase: HistoriaCreateUseCase) : Presenter {
+
     private var historiaCreateView: HistoriaCreateView? = null
 
     fun setView(@NonNull view: HistoriaCreateView) {
@@ -28,8 +26,8 @@ class HistoriaCreatePresenter
         this.historiaCreateView = null
     }
 
-    fun historiaCreate(titulo: String, contenido: String, esBifurcable: Boolean) {
-        val historia = HistoriaCreationEntity(titulo = titulo, aporte = AportePadreEntity(contenido = contenido, esBifurcable = esBifurcable))
+    fun historiaCreate(titulo: String, contenido: String, esBifurcable: Boolean, criteriosAceptacion: String, reglasAceptacion: ReglasAceptacion, reglasAportes: ReglasAportes) {
+        val historia = HistoriaCreationEntity(titulo = titulo, criteriosAceptacion = criteriosAceptacion, reglasAceptacion = reglasAceptacion, reglasAportes = reglasAportes, aporte = AportePadreEntity(contenido = contenido, esBifurcable = esBifurcable))
         this.historiaCreateUseCase.execute(HistoriasCreateObserver(), HistoriaCreateUseCase.Params(historia))
     }
 
@@ -49,6 +47,6 @@ class HistoriaCreatePresenter
     }
 
     private fun creationComplete(historia: HistoriaDetailEntity) {
-        Log.d("HistoriaCreate", historia.toString())
+        this.historiaCreateView?.toHistoriasList()
     }
 }
