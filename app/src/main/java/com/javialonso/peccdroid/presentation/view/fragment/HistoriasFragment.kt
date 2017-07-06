@@ -2,22 +2,22 @@ package com.javialonso.peccdroid.presentation.view.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import butterknife.Unbinder
 import com.javialonso.peccdroid.R
-import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.HistoriasPresenter
-import com.javialonso.peccdroid.presentation.view.HistoriasViewAdapter
+import com.javialonso.peccdroid.presentation.view.adapter.HistoriasViewAdapter
 import javax.inject.Inject
 
 class HistoriasFragment : BaseFragment(), HistoriasView {
@@ -102,12 +102,22 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
         }
     }
 
+    @OnClick(R.id.fab_historias_view) fun onFabClicked() {
+        historiasPresenter.createHistoria()
+    }
+
     override fun toDetailHistoria(historia: HistoriaEntity) {
         this.historiasListener?.viewHistoriaDetail(historia.id)
+    }
+
+    override fun toCreateHistoria() {
+        this.historiasListener?.viewCreateHistoria()
     }
 
 
     interface HistoriasListener {
         fun viewHistoriaDetail(id: Int)
+
+        fun viewCreateHistoria()
     }
 }

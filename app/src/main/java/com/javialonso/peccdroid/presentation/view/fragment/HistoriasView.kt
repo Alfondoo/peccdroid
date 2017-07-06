@@ -9,4 +9,6 @@ interface HistoriasView : BaseView {
 
     fun toDetailHistoria(historia: HistoriaEntity)
 
+    fun toCreateHistoria()
+
 }

@@ -35,6 +35,10 @@ class HistoriasPresenter
         this.historiasView?.toDetailHistoria(historia)
     }
 
+    fun createHistoria(){
+        this.historiasView?.toCreateHistoria()
+    }
+
     private inner class HistoriasObserver : DefaultObserver<List<HistoriaEntity>>() {
 
         override fun onError(exception: Throwable) {

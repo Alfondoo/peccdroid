@@ -20,8 +20,8 @@ import com.javialonso.peccdroid.data.entity.HistoriaEntity
 import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.ProfilePresenter
-import com.javialonso.peccdroid.presentation.view.AporteProfileAdapter
-import com.javialonso.peccdroid.presentation.view.HistoriasProfileAdapter
+import com.javialonso.peccdroid.presentation.view.adapter.AporteProfileAdapter
+import com.javialonso.peccdroid.presentation.view.adapter.HistoriasProfileAdapter
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileView {

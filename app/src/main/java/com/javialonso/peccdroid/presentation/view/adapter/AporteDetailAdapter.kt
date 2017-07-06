@@ -1,4 +1,4 @@
-package com.javialonso.peccdroid.presentation.view
+package com.javialonso.peccdroid.presentation.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

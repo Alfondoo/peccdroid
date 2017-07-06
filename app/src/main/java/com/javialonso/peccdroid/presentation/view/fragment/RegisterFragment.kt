@@ -47,7 +47,6 @@ class RegisterFragment : BaseFragment(), RegisterView {
     }
 
     @OnClick(R.id.btn_register) fun onRegistroButtonClicked() {
-        Log.e("RegisterFragment", "Hola")
         registerPresenter.registro(username?.editableText.toString(), email?.editableText.toString(), password?.editableText.toString(), passwordConfirm?.editableText.toString())
     }
 

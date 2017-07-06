@@ -19,7 +19,10 @@ import com.javialonso.peccdroid.data.entity.AporteDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.HistoriaDetailPresenter
-import com.javialonso.peccdroid.presentation.view.AporteDetailAdapter
+import com.javialonso.peccdroid.presentation.view.AporteSelectionCard
+import com.javialonso.peccdroid.presentation.view.StaticLayoutManager
+import com.javialonso.peccdroid.presentation.view.adapter.AporteDetailAdapter
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
@@ -58,7 +61,7 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
         super.onViewCreated(view, savedInstanceState)
         this.historiaDetailPresenter.setView(this)
         aportes?.adapter = AporteDetailAdapter(aportesVisibles)
-        aportes?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        aportes?.layoutManager = StaticLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         this.arguments?.getInt("id")?.let { this.historiaDetailPresenter.historiaDetail(it) }
     }
 
@@ -87,7 +90,7 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
     override fun updateView(historia: HistoriaDetailEntity) {
         titulo?.text = historia.titulo
         creador?.text = historia.creador
-        puntuacion?.text = historia.puntuacionMedia.toString()
+        puntuacion?.text = DecimalFormat("#.##").format(historia.puntuacionMedia).toString()
         reglasAceptacion?.text = historia.reglasAceptacion.name
         reglasAportes?.text = historia.reglasAportes.name
         historia.criteriosAceptacion?.let { criteriosAceptacion?.text = it }
@@ -99,23 +102,38 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
     }
 
     private fun showPathButtonsForAporte(aporte: AporteDetailEntity) {
-        val aportesHijos = aportesExistentes.filter { it.aportePadre == aporte.id }
+        navigationAportesContainer?.removeAllViews()
+        val aportesHijos = aportesExistentes.filter { it.aportePadre == aporte.id && it.esAceptado }
         for (aporte in aportesHijos) {
-            val button = Button(activity)
-            button.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            button.text = aporte.id.toString()
-            button.setOnClickListener { v ->
-                addAporte(aportesExistentes.filter {
-                    it.id == (v as Button).text.toString().toInt() && it.aportePadre == aportesVisibles.last().id
-                }.first())
+            val aporteCard = AporteSelectionCard(activity)
+            val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            layoutParams.setMargins(8, 8, 8, 8)
+            aporteCard.setData(aporte)
+            aporteCard.layoutParams = layoutParams
+            aporteCard.setOnClickListener { v ->
+                val aporte = aportesExistentes.find { it.id == (v as AporteSelectionCard).idAporte }
+                aporte?.let {
+                    addAporte(aporte)
+                    showPathButtonsForAporte(aporte)
+                }
             }
-            navigationAportesContainer?.addView(button)
+            navigationAportesContainer?.addView(aporteCard)
+        }
+        if (aporte.esBifurcable || aportesHijos.isEmpty()) {
+            val addButton = Button(activity)
+            // TODO: Añadir aporte
+            addButton.text = "Escribir nuevo aporte"
+            addButton.setBackgroundResource(R.drawable.abc_btn_borderless_material)
+            val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            layoutParams.setMargins(8, 8, 8, 8)
+            navigationAportesContainer?.addView(addButton)
         }
     }
 
     private fun addAporte(aporte: AporteDetailEntity) {
         if (aportesVisibles.isNotEmpty()) {
-            val aportesExistentes = aportesVisibles.subList(0, aportesVisibles.size - 1)
+            // Sublist generate a view of an array, not a new array, this lead to a ConcurrentModificationException in list.addAll()
+            val aportesExistentes = ArrayList(aportesVisibles.subList(0, aportesVisibles.size))
             aportesExistentes.add(aporte)
             aportesVisibles.clear()
             aportesVisibles.addAll(aportesExistentes)
