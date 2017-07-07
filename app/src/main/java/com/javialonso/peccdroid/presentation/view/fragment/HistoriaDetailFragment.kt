@@ -27,6 +27,7 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 
 class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
+
     @Inject lateinit var historiaDetailPresenter: HistoriaDetailPresenter
     @BindView(R.id.tv_titulo_historia_detail) @JvmField var titulo: TextView? = null
     @BindView(R.id.tv_creador_historia_detail) @JvmField var creador: TextView? = null
@@ -42,6 +43,7 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
     var butterknifeBinder: Unbinder? = null
     private var aportesVisibles: MutableList<AporteDetailEntity> = ArrayList()
     private var aportesExistentes: List<AporteDetailEntity> = ArrayList()
+    private var historiaDetailListener: HistoriaDetailListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +52,9 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        if (context is HistoriaDetailFragment.HistoriaDetailListener) {
+            this.historiaDetailListener = context
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -126,6 +131,9 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
             val addButton = Button(activity)
             addButton.text = "Escribir nuevo aporte"
             addButton.setBackgroundResource(R.drawable.abc_btn_borderless_material)
+            addButton.setOnClickListener {
+                this@HistoriaDetailFragment.historiaDetailPresenter.toCreateNuevoAporte(aporte)
+            }
             val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             layoutParams.setMargins(8, 8, 8, 8)
             navigationAportesContainer?.addView(addButton)
@@ -148,5 +156,13 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
 
     override fun showCreatorControls() {
         adminAportesHistoria?.visibility = View.VISIBLE
+    }
+
+    override fun toCreateNuevoAporte(aporte: AporteDetailEntity, historia: HistoriaDetailEntity) {
+        this.historiaDetailListener?.viewCreateNuevoAporte(aporte, historia)
+    }
+
+    interface HistoriaDetailListener {
+        fun viewCreateNuevoAporte(aporte: AporteDetailEntity, historia: HistoriaDetailEntity)
     }
 }

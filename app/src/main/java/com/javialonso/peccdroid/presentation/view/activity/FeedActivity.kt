@@ -4,18 +4,16 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import butterknife.BindView
 import com.javialonso.peccdroid.R
+import com.javialonso.peccdroid.data.entity.AporteDetailEntity
+import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
 import com.javialonso.peccdroid.presentation.internal.HasComponent
 import com.javialonso.peccdroid.presentation.internal.di.components.DaggerFeedComponent
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.FeedPresenter
-import com.javialonso.peccdroid.presentation.view.fragment.HistoriaCreateFragment
-import com.javialonso.peccdroid.presentation.view.fragment.HistoriaDetailFragment
-import com.javialonso.peccdroid.presentation.view.fragment.HistoriasFragment
-import com.javialonso.peccdroid.presentation.view.fragment.ProfileFragment
+import com.javialonso.peccdroid.presentation.view.fragment.*
 import javax.inject.Inject
 
-class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragment.HistoriasListener, HistoriaCreateFragment.HistoriaCreateListener {
-
+class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragment.HistoriasListener, HistoriaCreateFragment.HistoriaCreateListener, HistoriaDetailFragment.HistoriaDetailListener, HistoriaAporteCreateFragment.HistoriaAporteCreateListener {
 
     override lateinit var component: FeedComponent
     @Inject lateinit var feedPresenter: FeedPresenter
@@ -54,6 +52,19 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragm
     }
 
     override fun navigateToHistoriasList() {
+        this.popFragment()
+    }
+
+    override fun viewCreateNuevoAporte(aporte: AporteDetailEntity, historia: HistoriaDetailEntity) {
+        val fragment = HistoriaAporteCreateFragment()
+        val bundleData = Bundle()
+        bundleData.putSerializable("aporte", aporte)
+        bundleData.putSerializable("historia", historia)
+        fragment.arguments = bundleData
+        this.toFragment(R.id.fragmentFeedContainer, fragment, true)
+    }
+
+    override fun viewBackwardsHistoriaDetail() {
         this.popFragment()
     }
 }

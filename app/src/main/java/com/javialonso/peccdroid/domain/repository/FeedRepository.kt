@@ -1,9 +1,6 @@
 package com.javialonso.peccdroid.domain.repository
 
-import com.javialonso.peccdroid.data.entity.HistoriaCreationEntity
-import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
-import com.javialonso.peccdroid.data.entity.HistoriaEntity
-import com.javialonso.peccdroid.data.entity.ProfileEntity
+import com.javialonso.peccdroid.data.entity.*
 import io.reactivex.Maybe
 
 interface FeedRepository {
@@ -11,4 +8,5 @@ interface FeedRepository {
     fun historias(): Maybe<List<HistoriaEntity>>
     fun detailHistoria(id: Int): Maybe<HistoriaDetailEntity>
     fun createHistoria(historia: HistoriaCreationEntity): Maybe<HistoriaDetailEntity>
+    fun createAporteHistoria(aporte: AporteCreationEntity, aportePadre: Int, historia: Int): Maybe<AporteDetailEntity>
 }

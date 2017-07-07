@@ -2,6 +2,7 @@ package com.javialonso.peccdroid.data.entity
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.util.*
 
 data class AporteDetailEntity(
@@ -13,4 +14,4 @@ data class AporteDetailEntity(
         @Expose @SerializedName("puntuacion_media") val puntuacionMedia: Float,
         @Expose val creacion: Date,
         @Expose val autor: String
-)
+) : Serializable

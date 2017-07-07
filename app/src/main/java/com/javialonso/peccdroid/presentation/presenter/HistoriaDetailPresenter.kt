@@ -1,6 +1,7 @@
 package com.javialonso.peccdroid.presentation.presenter
 
 import android.support.annotation.NonNull
+import com.javialonso.peccdroid.data.entity.AporteDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
 import com.javialonso.peccdroid.data.storage.TokenStorage
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
@@ -14,6 +15,7 @@ class HistoriaDetailPresenter
 @Inject constructor(private val historiaDetailUseCase: HistoriaDetailUseCase) : Presenter {
     private var historiaDetailView: HistoriaDetailView? = null
     private var tokenStorage: TokenStorage? = null
+    private var historia: HistoriaDetailEntity? = null
 
     fun setView(@NonNull view: HistoriaDetailView) {
         this.historiaDetailView = view
@@ -55,6 +57,13 @@ class HistoriaDetailPresenter
         val usuario = tokenStorage?.retrieveData()?.username
         if (usuario == historia.creador) {
             this.historiaDetailView?.showCreatorControls()
+        }
+        this.historia = historia
+    }
+
+    fun toCreateNuevoAporte(aporte: AporteDetailEntity) {
+        historia?.let {
+            this.historiaDetailView?.toCreateNuevoAporte(aporte, it)
         }
     }
 }
