@@ -66,4 +66,14 @@ class HistoriaDetailPresenter
             this.historiaDetailView?.toCreateNuevoAporte(aporte, it)
         }
     }
+
+    fun onAporteHistoriaClicked(position: Int) {
+        this.historiaDetailView?.showAportesUntil(position)
+    }
+
+    fun toAportesPendientes() {
+        historia?.let {
+            this.historiaDetailView?.toAportesPendientes(it.id)
+        }
+    }
 }

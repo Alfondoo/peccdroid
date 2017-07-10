@@ -19,4 +19,11 @@ interface FeedApi {
 
     @POST("historias/{idHistoria}/aportes/{aportePadre}/continuar/")
     fun createAporteHistoria(@Header("Authorization") token: String, @Body aporte: AporteCreationEntity, @Path("aportePadre") aportePadre: Int, @Path("idHistoria") historia: Int): Maybe<AporteDetailEntity>
+
+    @GET("historias/{id}/aportes/pendientes/")
+    fun aportesPendientes(@Header("Authorization") token: String, @Path("id") historia: Int): Maybe<List<AporteDetailEntity>>
+
+    @FormUrlEncoded
+    @POST("historias/{id}/aportes/{idAporte}/aceptar/")
+    fun validar(@Header("Authorization") token: String, @Path("id") historia: Int, @Path("idAporte") aporte: Int, @Field("es_aceptado") es_aceptado: Boolean): Maybe<AporteDetailEntity>
 }

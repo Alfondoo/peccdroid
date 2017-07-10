@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import butterknife.Unbinder
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.data.entity.AporteDetailEntity
@@ -27,7 +28,6 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 
 class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
-
     @Inject lateinit var historiaDetailPresenter: HistoriaDetailPresenter
     @BindView(R.id.tv_titulo_historia_detail) @JvmField var titulo: TextView? = null
     @BindView(R.id.tv_creador_historia_detail) @JvmField var creador: TextView? = null
@@ -68,7 +68,9 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
         super.onViewCreated(view, savedInstanceState)
         this.historiaDetailPresenter.setView(this)
         this.historiaDetailPresenter.setTokenStorage(SharedPreferencesTokenStorage(activity))
-        aportes?.adapter = AporteDetailAdapter(aportesVisibles)
+        val aporteAdapter = AporteDetailAdapter(aportesVisibles)
+        aporteAdapter.onItemClickListener = this.onItemClickListener
+        aportes?.adapter = aporteAdapter
         aportes?.layoutManager = StaticLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         this.arguments?.getInt("id")?.let { this.historiaDetailPresenter.historiaDetail(it) }
     }
@@ -95,6 +97,14 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
         super.onDetach()
     }
 
+    private val onItemClickListener = object : AporteDetailAdapter.OnItemClickListener {
+        override fun onAporteItemClicked(position: Int) {
+            if (this@HistoriaDetailFragment.historiaDetailPresenter != null && position != null) {
+                this@HistoriaDetailFragment.historiaDetailPresenter.onAporteHistoriaClicked(position)
+            }
+        }
+    }
+
     override fun updateView(historia: HistoriaDetailEntity) {
         titulo?.text = historia.titulo
         creador?.text = historia.creador
@@ -105,6 +115,8 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
 
         aportesExistentes = historia.aportes
         val aporteInicial = aportesExistentes.filter { it.aportePadre == null }.first()
+        // Reset aportes vsiibles to prevent duplications on backwards from aporte creation
+        aportesVisibles.clear()
         addAporte(aporteInicial)
         showPathButtonsForAporte(aporteInicial)
     }
@@ -154,6 +166,16 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
         aportes?.adapter?.notifyDataSetChanged()
     }
 
+    override fun showAportesUntil(position: Int) {
+        if (aportesVisibles.size > position) {
+            val nuevosAportesVisibles = ArrayList(aportesVisibles.subList(0, position + 1))
+            aportesVisibles.clear()
+            aportesVisibles.addAll(nuevosAportesVisibles)
+            aportes?.adapter?.notifyDataSetChanged()
+            showPathButtonsForAporte(aportesVisibles.last())
+        }
+    }
+
     override fun showCreatorControls() {
         adminAportesHistoria?.visibility = View.VISIBLE
     }
@@ -162,7 +184,16 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
         this.historiaDetailListener?.viewCreateNuevoAporte(aporte, historia)
     }
 
+    override fun toAportesPendientes(historia: Int) {
+        this.historiaDetailListener?.viewAportesPendientes(historia)
+    }
+
+    @OnClick(R.id.btn_admin_historia_detail) fun onClickButtonAdminAportesHistoria() {
+        this.historiaDetailPresenter?.toAportesPendientes()
+    }
+
     interface HistoriaDetailListener {
         fun viewCreateNuevoAporte(aporte: AporteDetailEntity, historia: HistoriaDetailEntity)
+        fun viewAportesPendientes(historia: Int)
     }
 }

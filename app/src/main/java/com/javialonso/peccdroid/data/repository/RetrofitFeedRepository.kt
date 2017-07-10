@@ -34,4 +34,14 @@ class RetrofitFeedRepository @Inject internal constructor(private val restApi: R
         val token = "Token " + restApi.authorizationToken
         return restApi.feedService.createAporteHistoria(token, aporte, aportePadre, historia)
     }
+
+    override fun aportesPendientes(historia: Int): Maybe<List<AporteDetailEntity>> {
+        val token = "Token " + restApi.authorizationToken
+        return restApi.feedService.aportesPendientes(token, historia)
+    }
+
+    override fun validar(historia: Int, aporte: Int, validacion: Boolean): Maybe<AporteDetailEntity> {
+        val token = "Token " + restApi.authorizationToken
+        return restApi.feedService.validar(token, historia, aporte, validacion)
+    }
 }

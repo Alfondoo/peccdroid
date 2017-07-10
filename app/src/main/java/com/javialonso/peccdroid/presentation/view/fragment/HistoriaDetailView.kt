@@ -7,4 +7,6 @@ interface HistoriaDetailView {
     fun updateView(historia: HistoriaDetailEntity)
     fun showCreatorControls()
     fun toCreateNuevoAporte(aporte: AporteDetailEntity, historia: HistoriaDetailEntity)
+    fun showAportesUntil(position: Int)
+    fun toAportesPendientes(historia: Int)
 }

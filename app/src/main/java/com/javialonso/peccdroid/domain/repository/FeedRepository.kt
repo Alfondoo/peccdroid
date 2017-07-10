@@ -9,4 +9,6 @@ interface FeedRepository {
     fun detailHistoria(id: Int): Maybe<HistoriaDetailEntity>
     fun createHistoria(historia: HistoriaCreationEntity): Maybe<HistoriaDetailEntity>
     fun createAporteHistoria(aporte: AporteCreationEntity, aportePadre: Int, historia: Int): Maybe<AporteDetailEntity>
+    fun aportesPendientes(historia: Int): Maybe<List<AporteDetailEntity>>
+    fun validar(historia: Int, aporte: Int, validacion: Boolean): Maybe<AporteDetailEntity>
 }

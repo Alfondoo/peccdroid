@@ -14,7 +14,6 @@ import com.javialonso.peccdroid.presentation.view.fragment.*
 import javax.inject.Inject
 
 class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragment.HistoriasListener, HistoriaCreateFragment.HistoriaCreateListener, HistoriaDetailFragment.HistoriaDetailListener, HistoriaAporteCreateFragment.HistoriaAporteCreateListener {
-
     override lateinit var component: FeedComponent
     @Inject lateinit var feedPresenter: FeedPresenter
     @BindView(R.id.bnav_feed_activity) @JvmField var bottomNavigation: BottomNavigationView? = null
@@ -66,5 +65,13 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragm
 
     override fun viewBackwardsHistoriaDetail() {
         this.popFragment()
+    }
+
+    override fun viewAportesPendientes(historia: Int) {
+        val fragment = AportesPendientesFragment()
+        val bundleData = Bundle()
+        bundleData.putInt("id", historia)
+        fragment.arguments = bundleData
+        this.toFragment(R.id.fragmentFeedContainer, fragment, true)
     }
 }

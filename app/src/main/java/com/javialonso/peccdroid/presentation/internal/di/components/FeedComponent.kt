@@ -16,4 +16,5 @@ interface FeedComponent : ActivityComponent {
     fun inject(historiasDetailFragment: HistoriaDetailFragment)
     fun inject(historiaCreateFragment: HistoriaCreateFragment)
     fun inject(historiaAporteCreateFragment: HistoriaAporteCreateFragment)
+    fun inject(aportesPendientesFragment: AportesPendientesFragment)
 }

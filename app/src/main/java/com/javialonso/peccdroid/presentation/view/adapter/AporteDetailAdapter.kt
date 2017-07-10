@@ -13,9 +13,20 @@ import java.text.DecimalFormat
 
 class AporteDetailAdapter(val items: List<AporteDetailEntity>) : RecyclerView.Adapter<AporteDetailAdapter.AporteDetailViewHolder>() {
 
+    var onItemClickListener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onAporteItemClicked(position: Int)
+    }
+
     override fun onBindViewHolder(holder: AporteDetailViewHolder, position: Int) {
-        val item = items.get(position)
+        val item = items[position]
         holder.bindItem(item)
+        holder.itemView.setOnClickListener {
+            if (this@AporteDetailAdapter.onItemClickListener != null) {
+                this@AporteDetailAdapter.onItemClickListener?.onAporteItemClicked(position)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AporteDetailViewHolder {

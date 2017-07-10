@@ -13,10 +13,10 @@ import com.javialonso.peccdroid.data.helpers.DateHelper
 import java.text.DecimalFormat
 
 class AporteProfileAdapter(val items: List<AporteEntity>) : RecyclerView.Adapter<AporteProfileAdapter.AporteProfileViewHolder>() {
-
     override fun onBindViewHolder(holder: AporteProfileViewHolder, position: Int) {
         val item = items.get(position)
         holder.bindItem(item)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AporteProfileViewHolder {
