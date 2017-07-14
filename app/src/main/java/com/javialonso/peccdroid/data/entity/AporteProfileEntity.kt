@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class AporteEntity(
+data class AporteProfileEntity(
         @Expose val contenido: String,
         @Expose val historia: HistoriaEntity,
         @Expose @SerializedName("es_aceptado") val esAceptado: Boolean,

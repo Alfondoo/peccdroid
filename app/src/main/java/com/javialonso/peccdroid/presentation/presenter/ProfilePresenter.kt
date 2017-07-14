@@ -5,7 +5,7 @@ import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.ProfileUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
-import com.javialonso.peccdroid.presentation.view.fragment.ProfileView
+import com.javialonso.peccdroid.presentation.view.contract.ProfileView
 import javax.inject.Inject
 
 @PerActivity

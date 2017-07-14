@@ -16,13 +16,14 @@ import butterknife.Unbinder
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.data.entity.AporteDetailEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
-import com.javialonso.peccdroid.presentation.presenter.AportesPendientesPresenter
+import com.javialonso.peccdroid.presentation.presenter.ValidateAportesPresenter
 import com.javialonso.peccdroid.presentation.view.SwipeAcceptRefuseTouchHelper
-import com.javialonso.peccdroid.presentation.view.adapter.AportePendienteAdapter
+import com.javialonso.peccdroid.presentation.view.adapter.ValidateAportesAdapter
+import com.javialonso.peccdroid.presentation.view.contract.ValidateAportesView
 import javax.inject.Inject
 
-class AportesPendientesFragment : BaseFragment(), AportesPendientesView, SwipeAcceptRefuseTouchHelper.SwipeAcceptRefuse {
-    @Inject lateinit var aportesPendientesPresenter: AportesPendientesPresenter
+class ValidateValidateAportesFragment : BaseFragment(), ValidateAportesView, SwipeAcceptRefuseTouchHelper.SwipeAcceptRefuse {
+    @Inject lateinit var validateAportesPresenter: ValidateAportesPresenter
     @BindView(R.id.rv_aportes_pendientes) @JvmField var rvAportesPendientes: RecyclerView? = null
     var aportesPendientes: MutableList<AporteDetailEntity> = ArrayList()
     var butterknifeBinder: Unbinder? = null
@@ -45,10 +46,10 @@ class AportesPendientesFragment : BaseFragment(), AportesPendientesView, SwipeAc
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.aportesPendientesPresenter.setView(this)
-        this.arguments?.getInt("id")?.let { this.aportesPendientesPresenter.setHistoriaId(it) }
-        this.aportesPendientesPresenter.aportesPendientes()
-        this.rvAportesPendientes?.adapter = AportePendienteAdapter(aportesPendientes)
+        this.validateAportesPresenter.setView(this)
+        this.arguments?.getInt("id")?.let { this.validateAportesPresenter.setHistoriaId(it) }
+        this.validateAportesPresenter.aportesPendientes()
+        this.rvAportesPendientes?.adapter = ValidateAportesAdapter(aportesPendientes)
         this.rvAportesPendientes?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         this.rvAportesPendientes?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         val swipeAcceptRefuseTouchHelper = SwipeAcceptRefuseTouchHelper(this, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
@@ -85,11 +86,11 @@ class AportesPendientesFragment : BaseFragment(), AportesPendientesView, SwipeAc
     }
 
     override fun onAccept(adapterPosition: Int) {
-        this.aportesPendientesPresenter.aceptar(aportesPendientes[adapterPosition])
+        this.validateAportesPresenter.aceptar(aportesPendientes[adapterPosition])
     }
 
     override fun onRefuse(adapterPosition: Int) {
-        this.aportesPendientesPresenter.rechazar(aportesPendientes[adapterPosition])
+        this.validateAportesPresenter.rechazar(aportesPendientes[adapterPosition])
     }
 
     override fun deleteAporte(aporte: AporteDetailEntity) {

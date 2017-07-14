@@ -2,6 +2,7 @@ package com.javialonso.peccdroid.presentation.view.activity
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v7.widget.Toolbar
 import butterknife.BindView
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.data.entity.AporteDetailEntity
@@ -13,21 +14,24 @@ import com.javialonso.peccdroid.presentation.presenter.FeedPresenter
 import com.javialonso.peccdroid.presentation.view.fragment.*
 import javax.inject.Inject
 
-class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragment.HistoriasListener, HistoriaCreateFragment.HistoriaCreateListener, HistoriaDetailFragment.HistoriaDetailListener, HistoriaAporteCreateFragment.HistoriaAporteCreateListener {
+class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasListFragment.HistoriasListener, HistoriaCreateFragment.HistoriaCreateListener, HistoriaDetailFragment.HistoriaDetailListener, HistoriaAporteCreateFragment.HistoriaAporteCreateListener {
     override lateinit var component: FeedComponent
     @Inject lateinit var feedPresenter: FeedPresenter
     @BindView(R.id.bnav_feed_activity) @JvmField var bottomNavigation: BottomNavigationView? = null
+    @BindView(R.id.toolbar_feed) @JvmField var toolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
         bottomNavigation = findViewById(R.id.bnav_feed_activity) as BottomNavigationView?
+        val toolbar = findViewById(R.id.toolbar_feed) as Toolbar
+        setSupportActionBar(toolbar)
         initializeInjector()
         bottomNavigation?.setOnNavigationItemSelectedListener(
                 { item ->
                     when (item.itemId) {
                         R.id.it_profile_bnav -> toFragment(R.id.fragmentFeedContainer, ProfileFragment(), false)
-                        R.id.it_historias_bnav -> toFragment(R.id.fragmentFeedContainer, HistoriasFragment(), false)
+                        R.id.it_historias_bnav -> toFragment(R.id.fragmentFeedContainer, HistoriasListFragment(), false)
                     }
                     true
                 })
@@ -68,7 +72,7 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasFragm
     }
 
     override fun viewAportesPendientes(historia: Int) {
-        val fragment = AportesPendientesFragment()
+        val fragment = ValidateValidateAportesFragment()
         val bundleData = Bundle()
         bundleData.putInt("id", historia)
         fragment.arguments = bundleData

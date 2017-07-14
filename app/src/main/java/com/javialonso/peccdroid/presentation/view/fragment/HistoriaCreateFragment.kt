@@ -19,6 +19,7 @@ import com.javialonso.peccdroid.data.entity.ReglasAceptacion
 import com.javialonso.peccdroid.data.entity.ReglasAportes
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.HistoriaCreatePresenter
+import com.javialonso.peccdroid.presentation.view.contract.HistoriaCreateView
 import javax.inject.Inject
 
 

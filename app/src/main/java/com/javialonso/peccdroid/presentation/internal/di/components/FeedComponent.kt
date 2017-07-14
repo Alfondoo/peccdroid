@@ -12,9 +12,9 @@ import dagger.Component
 @Component(dependencies = arrayOf(ApplicationComponent::class), modules = arrayOf(ActivityModule::class, FeedModule::class))
 interface FeedComponent : ActivityComponent {
     fun inject(profileFragment: ProfileFragment)
-    fun inject(historiasFragment: HistoriasFragment)
+    fun inject(historiasListFragment: HistoriasListFragment)
     fun inject(historiasDetailFragment: HistoriaDetailFragment)
     fun inject(historiaCreateFragment: HistoriaCreateFragment)
     fun inject(historiaAporteCreateFragment: HistoriaAporteCreateFragment)
-    fun inject(aportesPendientesFragment: AportesPendientesFragment)
+    fun inject(validateAportesFragment: ValidateValidateAportesFragment)
 }

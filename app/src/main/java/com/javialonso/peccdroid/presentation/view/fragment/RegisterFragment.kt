@@ -2,7 +2,6 @@ package com.javialonso.peccdroid.presentation.view.fragment
 
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import butterknife.Unbinder
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.presentation.internal.di.components.AuthorizationComponent
 import com.javialonso.peccdroid.presentation.presenter.RegisterPresenter
+import com.javialonso.peccdroid.presentation.view.contract.RegisterView
 import javax.inject.Inject
 
 

@@ -16,6 +16,7 @@ import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.presentation.component.SharedPreferencesTokenStorage
 import com.javialonso.peccdroid.presentation.internal.di.components.AuthorizationComponent
 import com.javialonso.peccdroid.presentation.presenter.LoginPresenter
+import com.javialonso.peccdroid.presentation.view.contract.LoginView
 import javax.inject.Inject
 
 

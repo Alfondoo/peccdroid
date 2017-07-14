@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
-                    android:text="Reglas de aportes:"
+                    android:text="Reglas de aporte:"
                     android:textColor="#212121"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_reglas_aceptacion_historia_detail" />
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
-                    android:text="Administrar aportes"
+                    android:text="Administrar aporte"
                     android:visibility="gone"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_aportes_historia_detail" />

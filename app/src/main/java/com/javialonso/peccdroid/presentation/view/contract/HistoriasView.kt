@@ -1,4 +1,4 @@
-package com.javialonso.peccdroid.presentation.view.fragment
+package com.javialonso.peccdroid.presentation.view.contract
 
 import com.javialonso.peccdroid.data.entity.HistoriaEntity
 

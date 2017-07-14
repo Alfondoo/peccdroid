@@ -16,12 +16,13 @@ import butterknife.Unbinder
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.data.entity.HistoriaEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
-import com.javialonso.peccdroid.presentation.presenter.HistoriasPresenter
-import com.javialonso.peccdroid.presentation.view.adapter.HistoriasViewAdapter
+import com.javialonso.peccdroid.presentation.presenter.HistoriasListPresenter
+import com.javialonso.peccdroid.presentation.view.adapter.HistoriasListAdapter
+import com.javialonso.peccdroid.presentation.view.contract.HistoriasView
 import javax.inject.Inject
 
-class HistoriasFragment : BaseFragment(), HistoriasView {
-    @Inject lateinit var historiasPresenter: HistoriasPresenter
+class HistoriasListFragment : BaseFragment(), HistoriasView {
+    @Inject lateinit var historiasListPresenter: HistoriasListPresenter
     @BindView(R.id.rv_historias_view) @JvmField var historiasRecyclerView: RecyclerView? = null
     var butterknifeBinder: Unbinder? = null
 
@@ -34,7 +35,7 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is HistoriasFragment.HistoriasListener) {
+        if (context is HistoriasListFragment.HistoriasListener) {
             this.historiasListener = context
         }
     }
@@ -48,27 +49,27 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.historiasPresenter.setView(this)
+        this.historiasListPresenter.setView(this)
         retrieveHistorias()
-        this.historiasRecyclerView?.adapter = HistoriasViewAdapter(ArrayList<HistoriaEntity>())
+        this.historiasRecyclerView?.adapter = HistoriasListAdapter(ArrayList<HistoriaEntity>())
         this.historiasRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         this.historiasRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
     }
 
     private fun retrieveHistorias() {
-        this.historiasPresenter.historias()
+        this.historiasListPresenter.historias()
     }
 
     override fun onResume() {
         super.onResume()
-        this.historiasPresenter.resume()
-        this.historiasPresenter.setView(this)
+        this.historiasListPresenter.resume()
+        this.historiasListPresenter.setView(this)
         (activity as AppCompatActivity).supportActionBar?.show()
     }
 
     override fun onPause() {
         super.onPause()
-        this.historiasPresenter.pause()
+        this.historiasListPresenter.pause()
     }
 
     override fun onDestroyView() {
@@ -78,7 +79,7 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
 
     override fun onDestroy() {
         super.onDestroy()
-        this.historiasPresenter.destroy()
+        this.historiasListPresenter.destroy()
     }
 
     override fun onDetach() {
@@ -86,7 +87,7 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
     }
 
     override fun updateHistoriasList(historias: List<HistoriaEntity>) {
-        val historiaAdapter = HistoriasViewAdapter(historias)
+        val historiaAdapter = HistoriasListAdapter(historias)
         historiaAdapter.onItemClickListener = onItemClickListener
         this.historiasRecyclerView?.adapter = historiaAdapter
     }
@@ -95,16 +96,16 @@ class HistoriasFragment : BaseFragment(), HistoriasView {
         showToastMessage(message)
     }
 
-    private val onItemClickListener = object : HistoriasViewAdapter.OnItemClickListener {
+    private val onItemClickListener = object : HistoriasListAdapter.OnItemClickListener {
         override fun onHistoriaItemClicked(historia: HistoriaEntity) {
-            if (this@HistoriasFragment.historiasPresenter != null && historia != null) {
-                this@HistoriasFragment.historiasPresenter.onHistoriaClicked(historia)
+            if (this@HistoriasListFragment.historiasListPresenter != null && historia != null) {
+                this@HistoriasListFragment.historiasListPresenter.onHistoriaClicked(historia)
             }
         }
     }
 
     @OnClick(R.id.fab_historias_view) fun onFabClicked() {
-        historiasPresenter.createHistoria()
+        historiasListPresenter.createHistoria()
     }
 
     override fun toDetailHistoria(historia: HistoriaEntity) {

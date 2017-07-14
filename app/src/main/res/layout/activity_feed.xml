@@ -1,26 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_feed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_feed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimary"
+            android:elevation="4dp"
+            android:minHeight="?attr/actionBarSize"
+            android:title="@string/app_name"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="@string/app_name">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/fragmentFeedContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bnav_feed_activity"
+        android:layout_below="@+id/appbar_feed"
         android:animateLayoutChanges="true" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bnav_feed_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
+        android:layout_below="@+id/fragmentFeedContainer"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@drawable/bnav_selector"
         app:itemTextColor="@drawable/bnav_selector"
         app:menu="@menu/bnav_feed_activity_menu" />
 
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -24,6 +24,7 @@ import com.javialonso.peccdroid.presentation.presenter.HistoriaDetailPresenter
 import com.javialonso.peccdroid.presentation.view.AporteSelectionCard
 import com.javialonso.peccdroid.presentation.view.StaticLayoutManager
 import com.javialonso.peccdroid.presentation.view.adapter.AporteDetailAdapter
+import com.javialonso.peccdroid.presentation.view.contract.HistoriaDetailView
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -115,7 +116,7 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
 
         aportesExistentes = historia.aportes
         val aporteInicial = aportesExistentes.filter { it.aportePadre == null }.first()
-        // Reset aportes vsiibles to prevent duplications on backwards from aporte creation
+        // Reset aporteProfiles vsiibles to prevent duplications on backwards from aporte creation
         aportesVisibles.clear()
         addAporte(aporteInicial)
         showPathButtonsForAporte(aporteInicial)

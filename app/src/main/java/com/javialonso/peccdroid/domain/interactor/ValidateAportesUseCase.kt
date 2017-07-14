@@ -8,7 +8,7 @@ import com.javialonso.peccdroid.domain.repository.FeedRepository
 import io.reactivex.Maybe
 import javax.inject.Inject
 
-class ValidacionAportesUseCase @Inject internal constructor(val feedRepository: FeedRepository, threadExecutor: ThreadExecutor, postExecutionThread: PostExecutionThread) : UseCase<AporteDetailEntity, ValidacionAportesUseCase.Params>(threadExecutor, postExecutionThread) {
+class ValidateAportesUseCase @Inject internal constructor(val feedRepository: FeedRepository, threadExecutor: ThreadExecutor, postExecutionThread: PostExecutionThread) : UseCase<AporteDetailEntity, ValidateAportesUseCase.Params>(threadExecutor, postExecutionThread) {
     override fun buildUseCaseObservable(params: Params): Maybe<AporteDetailEntity> {
         Preconditions.checkNotNull(params)
         return this.feedRepository.validar(params.historia, params.aporte, params.validacion)

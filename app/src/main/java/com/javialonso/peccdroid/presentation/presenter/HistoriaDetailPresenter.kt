@@ -7,7 +7,7 @@ import com.javialonso.peccdroid.data.storage.TokenStorage
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.HistoriaDetailUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
-import com.javialonso.peccdroid.presentation.view.fragment.HistoriaDetailView
+import com.javialonso.peccdroid.presentation.view.contract.HistoriaDetailView
 import javax.inject.Inject
 
 @PerActivity

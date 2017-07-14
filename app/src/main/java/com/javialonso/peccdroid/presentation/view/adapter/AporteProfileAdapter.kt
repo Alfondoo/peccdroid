@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.javialonso.peccdroid.R
-import com.javialonso.peccdroid.data.entity.AporteEntity
+import com.javialonso.peccdroid.data.entity.AporteProfileEntity
 import com.javialonso.peccdroid.data.helpers.DateHelper
 import java.text.DecimalFormat
 
-class AporteProfileAdapter(val items: List<AporteEntity>) : RecyclerView.Adapter<AporteProfileAdapter.AporteProfileViewHolder>() {
+class AporteProfileAdapter(val items: List<AporteProfileEntity>) : RecyclerView.Adapter<AporteProfileAdapter.AporteProfileViewHolder>() {
     override fun onBindViewHolder(holder: AporteProfileViewHolder, position: Int) {
         val item = items.get(position)
         holder.bindItem(item)
@@ -43,19 +43,19 @@ class AporteProfileAdapter(val items: List<AporteEntity>) : RecyclerView.Adapter
             esAceptado.setColorFilter(ContextCompat.getColor(itemView.context, R.color.materialGreen))
         }
 
-        fun bindItem(aporte: AporteEntity) {
-            contenido.text = aporte.contenido
-            historia.text = aporte.historia.titulo
-            if (!aporte.esAceptado) {
+        fun bindItem(aporteProfile: AporteProfileEntity) {
+            contenido.text = aporteProfile.contenido
+            historia.text = aporteProfile.historia.titulo
+            if (!aporteProfile.esAceptado) {
                 esAceptado.visibility = View.GONE
                 esRechazado.visibility = View.VISIBLE
             }
-            if (!aporte.esBifurcable) {
+            if (!aporteProfile.esBifurcable) {
                 esBifurcable.visibility = View.GONE
                 noEsBifurcable.visibility = View.VISIBLE
             }
-            puntuacionMedia.text = DecimalFormat("#.##").format(aporte.puntuacionMedia).toString()
-            creacion.text = DateHelper().getTimeAgo(aporte.creacion)
+            puntuacionMedia.text = DecimalFormat("#.##").format(aporteProfile.puntuacionMedia).toString()
+            creacion.text = DateHelper().getTimeAgo(aporteProfile.creacion)
         }
     }
 }

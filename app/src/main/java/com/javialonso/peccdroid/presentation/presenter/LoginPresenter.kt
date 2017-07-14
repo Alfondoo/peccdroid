@@ -6,7 +6,7 @@ import com.javialonso.peccdroid.data.storage.TokenStorage
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.LoginUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
-import com.javialonso.peccdroid.presentation.view.fragment.LoginView
+import com.javialonso.peccdroid.presentation.view.contract.LoginView
 import javax.inject.Inject
 
 

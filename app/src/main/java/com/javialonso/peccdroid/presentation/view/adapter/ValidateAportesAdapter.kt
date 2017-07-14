@@ -10,15 +10,15 @@ import com.javialonso.peccdroid.data.entity.AporteDetailEntity
 import com.javialonso.peccdroid.data.helpers.DateHelper
 
 
-class AportePendienteAdapter(val items: List<AporteDetailEntity>) : RecyclerView.Adapter<AportePendienteAdapter.AportePendienteViewHolder>() {
+class ValidateAportesAdapter(val items: List<AporteDetailEntity>) : RecyclerView.Adapter<ValidateAportesAdapter.AportePendienteViewHolder>() {
     override fun onBindViewHolder(holder: AportePendienteViewHolder, position: Int) {
         val item = items[position]
         holder.bindItem(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AportePendienteAdapter.AportePendienteViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ValidateAportesAdapter.AportePendienteViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return AportePendienteAdapter.AportePendienteViewHolder(layoutInflater.inflate(R.layout.aporte_pendiente_item, parent, false))
+        return ValidateAportesAdapter.AportePendienteViewHolder(layoutInflater.inflate(R.layout.aporte_pendiente_item, parent, false))
     }
 
     override fun getItemCount(): Int {

@@ -2,7 +2,6 @@ package com.javialonso.peccdroid.presentation.view.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,13 +13,15 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.javialonso.peccdroid.R
-import com.javialonso.peccdroid.data.entity.AporteEntity
+import com.javialonso.peccdroid.data.entity.AporteProfileEntity
 import com.javialonso.peccdroid.data.entity.HistoriaEntity
 import com.javialonso.peccdroid.data.entity.ProfileEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.ProfilePresenter
+import com.javialonso.peccdroid.presentation.view.StaticLayoutManager
 import com.javialonso.peccdroid.presentation.view.adapter.AporteProfileAdapter
 import com.javialonso.peccdroid.presentation.view.adapter.HistoriasProfileAdapter
+import com.javialonso.peccdroid.presentation.view.contract.ProfileView
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileView {
@@ -62,7 +63,7 @@ class ProfileFragment : BaseFragment(), ProfileView {
     override fun onResume() {
         super.onResume()
         this.profilePresenter.resume()
-        (activity as AppCompatActivity).supportActionBar?.show()
+        // (activity as AppCompatActivity).supportActionBar?.show()
     }
 
     override fun onPause() {
@@ -90,18 +91,22 @@ class ProfileFragment : BaseFragment(), ProfileView {
 
     override fun updateProfileCard(profileEntity: ProfileEntity) {
         this.username?.text = profileEntity.username
-        this.historiasNumber?.text = profileEntity.historias.size.toString()
-        this.aportesNumber?.text = profileEntity.aportes.size.toString()
+        if (profileEntity.historias != null) {
+            this.historiasNumber?.text = profileEntity.historias.size.toString()
+            updateHistorias(profileEntity.historias)
+        }
+        if (profileEntity.aportes != null) {
+            this.aportesNumber?.text = profileEntity.aportes.size.toString()
+            updateAportes(profileEntity.aportes)
+        }
         // TODO; Round puntuacion media.
-        updateAportes(profileEntity.aportes)
-        updateHistorias(profileEntity.historias)
     }
 
-    private fun updateAportes(aportes: List<AporteEntity>) {
-        if (!aportes.isEmpty()) {
-            this.aportesRecyclerView?.adapter = AporteProfileAdapter(aportes)
-            this.aportesRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            if (aportes.size > 1) {
+    private fun updateAportes(aporteProfiles: List<AporteProfileEntity>) {
+        if (!aporteProfiles.isEmpty()) {
+            this.aportesRecyclerView?.adapter = AporteProfileAdapter(aporteProfiles)
+            this.aportesRecyclerView?.layoutManager = StaticLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            if (aporteProfiles.size > 1) {
                 this.aportesRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
             }
             this.aportesEmpty?.visibility = View.GONE
@@ -112,7 +117,7 @@ class ProfileFragment : BaseFragment(), ProfileView {
     private fun updateHistorias(historias: List<HistoriaEntity>) {
         if (!historias.isEmpty()) {
             this.historiasRecyclerView?.adapter = HistoriasProfileAdapter(historias)
-            this.historiasRecyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            this.historiasRecyclerView?.layoutManager = StaticLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             if (historias.size > 1) {
                 this.historiasRecyclerView?.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
             }

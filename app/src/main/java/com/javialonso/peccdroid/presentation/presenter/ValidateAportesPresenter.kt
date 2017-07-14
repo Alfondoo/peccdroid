@@ -2,21 +2,21 @@ package com.javialonso.peccdroid.presentation.presenter
 
 import android.support.annotation.NonNull
 import com.javialonso.peccdroid.data.entity.AporteDetailEntity
-import com.javialonso.peccdroid.domain.interactor.AportesPendientesUseCase
+import com.javialonso.peccdroid.domain.interactor.AportesPendientesListUseCase
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
-import com.javialonso.peccdroid.domain.interactor.ValidacionAportesUseCase
+import com.javialonso.peccdroid.domain.interactor.ValidateAportesUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
-import com.javialonso.peccdroid.presentation.view.fragment.AportesPendientesView
+import com.javialonso.peccdroid.presentation.view.contract.ValidateAportesView
 import javax.inject.Inject
 
 @PerActivity
-class AportesPendientesPresenter
-@Inject constructor(private val aportesPendientesUseCase: AportesPendientesUseCase, private val validacionAportesUseCase: ValidacionAportesUseCase) : Presenter {
-    private var aportesPendientesView: AportesPendientesView? = null
+class ValidateAportesPresenter
+@Inject constructor(private val aportesPendientesListUseCase: AportesPendientesListUseCase, private val validateAportesUseCase: ValidateAportesUseCase) : Presenter {
+    private var validateAportesView: ValidateAportesView? = null
     private var historiaId: Int? = null
 
-    fun setView(@NonNull view: AportesPendientesView) {
-        this.aportesPendientesView = view
+    fun setView(@NonNull viewValidate: ValidateAportesView) {
+        this.validateAportesView = viewValidate
     }
 
     override fun resume() {}
@@ -24,12 +24,12 @@ class AportesPendientesPresenter
     override fun pause() {}
 
     override fun destroy() {
-        this.aportesPendientesView = null
+        this.validateAportesView = null
     }
 
     fun aportesPendientes() {
         historiaId?.let {
-            this.aportesPendientesUseCase.execute(HistoriasObserver(), AportesPendientesUseCase.Params(it))
+            this.aportesPendientesListUseCase.execute(HistoriasObserver(), AportesPendientesListUseCase.Params(it))
         }
     }
 
@@ -49,7 +49,7 @@ class AportesPendientesPresenter
     }
 
     private fun updateView(aportes: List<AporteDetailEntity>) {
-        this.aportesPendientesView?.loadAportes(aportes)
+        this.validateAportesView?.loadAportes(aportes)
     }
 
     fun aceptar(aporteDetailEntity: AporteDetailEntity) {
@@ -62,7 +62,7 @@ class AportesPendientesPresenter
 
     private fun validar(aporteDetailEntity: AporteDetailEntity, validacion: Boolean) {
         historiaId?.let {
-            this.validacionAportesUseCase.execute(ValidacionObserver(), ValidacionAportesUseCase.Params(it, aporteDetailEntity.id, validacion))
+            this.validateAportesUseCase.execute(ValidacionObserver(), ValidateAportesUseCase.Params(it, aporteDetailEntity.id, validacion))
         }
     }
 
@@ -81,7 +81,7 @@ class AportesPendientesPresenter
     }
 
     private fun updateAporte(aporte: AporteDetailEntity) {
-        this.aportesPendientesView?.deleteAporte(aporte)
+        this.validateAportesView?.deleteAporte(aporte)
     }
 
     fun setHistoriaId(@NonNull id: Int) {

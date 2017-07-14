@@ -11,7 +11,7 @@ import com.javialonso.peccdroid.data.entity.HistoriaEntity
 import java.text.DecimalFormat
 
 
-class HistoriasViewAdapter(val items: List<HistoriaEntity>) : RecyclerView.Adapter<HistoriasViewAdapter.HistoriaViewViewHolder>() {
+class HistoriasListAdapter(val items: List<HistoriaEntity>) : RecyclerView.Adapter<HistoriasListAdapter.HistoriaViewViewHolder>() {
 
     var onItemClickListener: OnItemClickListener? = null
 
@@ -23,8 +23,8 @@ class HistoriasViewAdapter(val items: List<HistoriaEntity>) : RecyclerView.Adapt
         val item = items.get(position)
         holder.bindItem(item)
         holder.itemView.setOnClickListener {
-            if (this@HistoriasViewAdapter.onItemClickListener != null) {
-                this@HistoriasViewAdapter.onItemClickListener?.onHistoriaItemClicked(item)
+            if (this@HistoriasListAdapter.onItemClickListener != null) {
+                this@HistoriasListAdapter.onItemClickListener?.onHistoriaItemClicked(item)
             }
         }
     }

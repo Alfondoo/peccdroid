@@ -1,7 +1,5 @@
 package com.javialonso.peccdroid.presentation.view.fragment
 
-import android.app.Fragment
-import android.support.v7.view.SupportActionModeWrapper
 import android.widget.Toast
 import com.javialonso.peccdroid.presentation.internal.HasComponent
 

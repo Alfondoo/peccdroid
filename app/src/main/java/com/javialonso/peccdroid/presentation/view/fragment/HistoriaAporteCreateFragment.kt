@@ -18,6 +18,7 @@ import com.javialonso.peccdroid.data.entity.AporteDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
 import com.javialonso.peccdroid.presentation.internal.di.components.FeedComponent
 import com.javialonso.peccdroid.presentation.presenter.HistoriaAporteCreatePresenter
+import com.javialonso.peccdroid.presentation.view.contract.HistoriaAporteCreateView
 import javax.inject.Inject
 
 class HistoriaAporteCreateFragment : BaseFragment(), HistoriaAporteCreateView {

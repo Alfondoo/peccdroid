@@ -3,14 +3,14 @@ package com.javialonso.peccdroid.presentation.presenter
 import android.support.annotation.NonNull
 import com.javialonso.peccdroid.data.entity.HistoriaEntity
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
-import com.javialonso.peccdroid.domain.interactor.HistoriasUseCase
+import com.javialonso.peccdroid.domain.interactor.HistoriasListUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
-import com.javialonso.peccdroid.presentation.view.fragment.HistoriasView
+import com.javialonso.peccdroid.presentation.view.contract.HistoriasView
 import javax.inject.Inject
 
 @PerActivity
-class HistoriasPresenter
-@Inject constructor(val historiasUseCase: HistoriasUseCase) : Presenter {
+class HistoriasListPresenter
+@Inject constructor(val historiasListUseCase: HistoriasListUseCase) : Presenter {
 
     private var historiasView: HistoriasView? = null
 
@@ -23,12 +23,12 @@ class HistoriasPresenter
     override fun pause() {}
 
     override fun destroy() {
-        // this.historiasUseCase.dispose()
+        // this.historiasListUseCase.dispose()
         this.historiasView = null
     }
 
     fun historias() {
-        this.historiasUseCase.execute(HistoriasObserver(), Unit)
+        this.historiasListUseCase.execute(HistoriasObserver(), Unit)
     }
 
     fun onHistoriaClicked(historia: HistoriaEntity) {
