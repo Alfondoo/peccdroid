@@ -26,15 +26,18 @@ class HistoriaCreatePresenter
         this.historiaCreateView = null
     }
 
-    fun historiaCreate(titulo: String, contenido: String, esBifurcable: Boolean, criteriosAceptacion: String, reglasAceptacion: ReglasAceptacion, reglasAportes: ReglasAportes) {
-        val historia = HistoriaCreationEntity(titulo = titulo, criteriosAceptacion = criteriosAceptacion, reglasAceptacion = reglasAceptacion, reglasAportes = reglasAportes, aporte = AportePadreEntity(contenido = contenido, esBifurcable = esBifurcable))
+    fun historiaCreate(titulo: String, contenido: String, esBifurcable: Boolean, criteriosAceptacion: String, reglasAceptacion: ReglasAceptacion, reglasAportes: ReglasAportes, minCaracteres: Int = 20, maxCaracteres: Int = 20) {
+        val historia = HistoriaCreationEntity(titulo = titulo, criteriosAceptacion = criteriosAceptacion,
+                reglasAceptacion = reglasAceptacion, reglasAportes = reglasAportes,
+                limiteCaracteres = maxCaracteres, minimoCaracteres = minCaracteres,
+                aporte = AportePadreEntity(contenido = contenido, esBifurcable = esBifurcable))
         this.historiaCreateUseCase.execute(HistoriasCreateObserver(), HistoriaCreateUseCase.Params(historia))
     }
 
     private inner class HistoriasCreateObserver : DefaultObserver<HistoriaDetailEntity>() {
 
         override fun onError(exception: Throwable) {
-            super.onError(exception)
+            this@HistoriaCreatePresenter.historiaCreateView?.showError()
         }
 
         override fun onComplete() {

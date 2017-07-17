@@ -95,7 +95,7 @@ class LoginFragment : BaseFragment(), LoginView {
     }
 
     override fun showError(message: String) {
-        this.errorToast(message)
+        this.errorToast("Los credenciales son incorrectos")
     }
 
     override fun showSuccess() {
