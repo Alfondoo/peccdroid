@@ -32,12 +32,14 @@ constructor(val profileUseCase: ProfileUseCase) : Presenter {
     }
 
     fun retrieveProfile() {
+        this.profileView?.showLoader()
         this.profileUseCase.execute(ProfileObserver(), Unit)
     }
 
     private inner class ProfileObserver : DefaultObserver<ProfileEntity>() {
         override fun onSuccess(t: ProfileEntity) {
             updateView(t)
+            this@ProfilePresenter.profileView?.hideLoader()
         }
 
         override fun onComplete() {
@@ -45,7 +47,7 @@ constructor(val profileUseCase: ProfileUseCase) : Presenter {
         }
 
         override fun onError(exception: Throwable) {
-
+            this@ProfilePresenter.profileView?.hideLoader()
         }
     }
 

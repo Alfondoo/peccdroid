@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -39,7 +40,9 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
     @BindView(R.id.tv_criterios_aceptacion_valor_historia_detail) @JvmField var criteriosAceptacion: TextView? = null
     @BindView(R.id.rv_aportes_historia_detail) @JvmField var aportes: RecyclerView? = null
     @BindView(R.id.ll_btn_container_historia_detail) @JvmField var navigationAportesContainer: LinearLayout? = null
+    @BindView(R.id.ll_historia_detail) @JvmField var containerHistoria: LinearLayout? = null
     @BindView(R.id.btn_admin_historia_detail) @JvmField var adminAportesHistoria: Button? = null
+    @BindView(R.id.pb_historia_detail) @JvmField var progressBar: ProgressBar? = null
 
     var butterknifeBinder: Unbinder? = null
     private var aportesVisibles: MutableList<AporteDetailEntity> = ArrayList()
@@ -196,5 +199,16 @@ class HistoriaDetailFragment : BaseFragment(), HistoriaDetailView {
     interface HistoriaDetailListener {
         fun viewCreateNuevoAporte(aporte: AporteDetailEntity, historia: HistoriaDetailEntity)
         fun viewAportesPendientes(historia: Int)
+    }
+
+
+    override fun showLoader() {
+        containerHistoria?.visibility = View.GONE
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    override fun hideLoader() {
+        containerHistoria?.visibility = View.VISIBLE
+        progressBar?.visibility = View.GONE
     }
 }

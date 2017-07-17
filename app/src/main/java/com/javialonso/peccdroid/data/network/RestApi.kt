@@ -36,11 +36,11 @@ class RestApi @Inject internal constructor() {
         builder.excludeFieldsWithoutExposeAnnotation()
         val gson = builder.create()
 
-        val debugServerMac = "http://192.168.0.125:8000/api/0.1/"
+        val debugServerMac = "http://192.168.0.125:8800/api/0.1/"
         val debugServerWin = "http://192.168.1.8/api/0.1/"
 
         return Retrofit.Builder()
-                .baseUrl(debugServerWin)
+                .baseUrl(debugServerMac)
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

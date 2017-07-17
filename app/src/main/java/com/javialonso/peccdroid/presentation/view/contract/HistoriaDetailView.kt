@@ -9,4 +9,7 @@ interface HistoriaDetailView {
     fun toCreateNuevoAporte(aporte: AporteDetailEntity, historia: HistoriaDetailEntity)
     fun showAportesUntil(position: Int)
     fun toAportesPendientes(historia: Int)
+
+    fun showLoader()
+    fun hideLoader()
 }

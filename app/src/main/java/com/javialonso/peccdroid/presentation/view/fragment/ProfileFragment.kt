@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -26,7 +28,6 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileView {
-
     @Inject lateinit var profilePresenter: ProfilePresenter
     private var butterknifeBinder: Unbinder? = null
     @BindView(R.id.tv_username_profile) @JvmField var username: TextView? = null
@@ -38,6 +39,8 @@ class ProfileFragment : BaseFragment(), ProfileView {
     @BindView(R.id.rv_aportes_profile) @JvmField var aportesRecyclerView: RecyclerView? = null
     @BindView(R.id.tv_historias_profile_empty) @JvmField var historiasEmpty: TextView? = null
     @BindView(R.id.rv_historias_profile) @JvmField var historiasRecyclerView: RecyclerView? = null
+    @BindView(R.id.pb_profile) @JvmField var progressBar: ProgressBar? = null
+    @BindView(R.id.ll_profile) @JvmField var containerProfile: LinearLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,6 +139,16 @@ class ProfileFragment : BaseFragment(), ProfileView {
             this.historiasEmpty?.visibility = View.GONE
             this.historiasRecyclerView?.visibility = View.VISIBLE
         }
+    }
+
+    override fun showLoader() {
+        containerProfile?.visibility = View.GONE
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    override fun hideLoader() {
+        containerProfile?.visibility = View.VISIBLE
+        progressBar?.visibility = View.GONE
     }
 
 }

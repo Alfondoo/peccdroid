@@ -1,5 +1,10 @@
 package com.javialonso.peccdroid.presentation.view.contract
 
+import com.javialonso.peccdroid.data.entity.ProfileEntity
+
 interface ProfileView {
-    fun updateProfileCard(profileEntity: com.javialonso.peccdroid.data.entity.ProfileEntity)
+    fun updateProfileCard(profileEntity: ProfileEntity)
+
+    fun showLoader()
+    fun hideLoader()
 }

@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/primary"
         app:itemIconTint="@drawable/bnav_selector"
         app:itemTextColor="@drawable/bnav_selector"
         app:menu="@menu/bnav_feed_activity_menu" />

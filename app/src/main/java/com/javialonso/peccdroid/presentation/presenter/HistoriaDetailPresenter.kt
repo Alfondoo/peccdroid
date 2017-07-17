@@ -34,6 +34,7 @@ class HistoriaDetailPresenter
     }
 
     fun historiaDetail(id: Int) {
+        this.historiaDetailView?.showLoader()
         this.historiaDetailUseCase.execute(HistoriasObserver(), HistoriaDetailUseCase.Params(id))
     }
 
@@ -41,6 +42,7 @@ class HistoriaDetailPresenter
 
         override fun onError(exception: Throwable) {
             super.onError(exception)
+            this@HistoriaDetailPresenter.historiaDetailView?.hideLoader()
         }
 
         override fun onComplete() {
@@ -48,6 +50,7 @@ class HistoriaDetailPresenter
 
         override fun onSuccess(t: HistoriaDetailEntity) {
             updateView(t)
+            this@HistoriaDetailPresenter.historiaDetailView?.hideLoader()
         }
 
     }
