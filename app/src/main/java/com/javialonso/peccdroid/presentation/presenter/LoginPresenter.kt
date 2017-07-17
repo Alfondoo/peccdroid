@@ -35,11 +35,16 @@ constructor(@NonNull val loginUseCase: LoginUseCase) : Presenter {
     }
 
     fun login(user: String, password: String) {
+        showLoader()
         this.loginUseCase.execute(LoginObserver(), LoginUseCase.Params(user, password))
     }
 
     private fun error(message: String) {
         this.loginView?.showError(message)
+    }
+
+    private fun success() {
+        this.loginView?.showSuccess()
     }
 
     fun registro() {
@@ -50,20 +55,27 @@ constructor(@NonNull val loginUseCase: LoginUseCase) : Presenter {
         this.loginView?.loginComplete()
     }
 
+    fun showLoader() {
+        this.loginView?.showLoader()
+    }
+
+    fun hideLoader() {
+        this.loginView?.hideLoader()
+    }
+
     private inner class LoginObserver : DefaultObserver<TokenEntity>() {
 
         override fun onComplete() {
-            print("Okay")
         }
 
         override fun onError(exception: Throwable) {
             error(exception.localizedMessage)
+            hideLoader()
             //error((exception as HttpException).response())
         }
 
         override fun onSuccess(t: TokenEntity) {
-            print("Perfe")
-            this@LoginPresenter.error(t.toString())
+            this@LoginPresenter.success()
             this@LoginPresenter.tokenStorage?.saveData(t)
             toFeed()
         }

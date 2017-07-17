@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -26,6 +27,8 @@ class LoginFragment : BaseFragment(), LoginView {
     @BindView(R.id.et_username_login) @JvmField var username: TextInputEditText? = null
     @BindView(R.id.et_password_login) @JvmField var password: TextInputEditText? = null
     @BindView(R.id.btn_login) @JvmField var btnLogin: Button? = null
+    @BindView(R.id.btn_registro_login) @JvmField var btnRegistro: Button? = null
+    @BindView(R.id.pb_login_view) @JvmField var progressBar: ProgressBar? = null
 
     var loginListener: LoginListener? = null
 
@@ -92,7 +95,23 @@ class LoginFragment : BaseFragment(), LoginView {
     }
 
     override fun showError(message: String) {
-        showToastMessage(message)
+        this.errorToast(message)
+    }
+
+    override fun showSuccess() {
+        successToast("Correcto")
+    }
+
+    override fun hideLoader() {
+        this.progressBar?.visibility = View.GONE
+        this.btnLogin?.visibility = View.VISIBLE
+        this.btnRegistro?.visibility = View.VISIBLE
+    }
+
+    override fun showLoader() {
+        this.progressBar?.visibility = View.VISIBLE
+        this.btnLogin?.visibility = View.GONE
+        this.btnRegistro?.visibility = View.GONE
     }
 
     @OnClick(R.id.btn_login) internal fun onButtonLoginClick() {

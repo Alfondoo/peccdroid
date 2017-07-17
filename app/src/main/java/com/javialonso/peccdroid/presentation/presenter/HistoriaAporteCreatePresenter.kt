@@ -4,6 +4,7 @@ import android.support.annotation.NonNull
 import com.javialonso.peccdroid.data.entity.AporteCreationEntity
 import com.javialonso.peccdroid.data.entity.AporteDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
+import com.javialonso.peccdroid.data.entity.ReglasAportes
 import com.javialonso.peccdroid.domain.interactor.DefaultObserver
 import com.javialonso.peccdroid.domain.interactor.HistoriaAporteCreateUseCase
 import com.javialonso.peccdroid.presentation.internal.PerActivity
@@ -63,5 +64,15 @@ class HistoriaAporteCreatePresenter
 
     private fun creationComplete(aporte: AporteDetailEntity) {
         this.historiaAporteCreateView?.toHistoriaDetail()
+    }
+
+    fun initializeGUI() {
+        if (this.historia?.reglasAportes == ReglasAportes.MaxCaracteres) {
+            historia?.let { this.historiaAporteCreateView?.updateReglas(it.reglasAportes, it.limiteCaracteres) }
+        } else if (this.historia?.reglasAportes == ReglasAportes.MinCaracteres) {
+            historia?.let { this.historiaAporteCreateView?.updateReglas(it.reglasAportes, it.minimoCaracteres) }
+        } else {
+            historia?.let { this.historiaAporteCreateView?.updateReglas(it.reglasAportes) }
+        }
     }
 }

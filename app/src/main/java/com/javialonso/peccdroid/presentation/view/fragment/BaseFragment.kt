@@ -2,6 +2,7 @@ package com.javialonso.peccdroid.presentation.view.fragment
 
 import android.widget.Toast
 import com.javialonso.peccdroid.presentation.internal.HasComponent
+import es.dmoral.toasty.Toasty
 
 
 abstract class BaseFragment : android.support.v4.app.Fragment() {
@@ -12,6 +13,14 @@ abstract class BaseFragment : android.support.v4.app.Fragment() {
      */
     protected fun showToastMessage(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    protected fun errorToast(message: String) {
+        Toasty.error(activity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    protected fun successToast(message: String) {
+        Toasty.success(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     /**

@@ -2,8 +2,9 @@ package com.javialonso.peccdroid.presentation.view.activity
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v7.widget.Toolbar
 import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import com.javialonso.peccdroid.R
 import com.javialonso.peccdroid.data.entity.AporteDetailEntity
 import com.javialonso.peccdroid.data.entity.HistoriaDetailEntity
@@ -18,14 +19,13 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasListF
     override lateinit var component: FeedComponent
     @Inject lateinit var feedPresenter: FeedPresenter
     @BindView(R.id.bnav_feed_activity) @JvmField var bottomNavigation: BottomNavigationView? = null
-    @BindView(R.id.toolbar_feed) @JvmField var toolbar: Toolbar? = null
+    private var butterknifeBinder: Unbinder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
-        bottomNavigation = findViewById(R.id.bnav_feed_activity) as BottomNavigationView?
-        val toolbar = findViewById(R.id.toolbar_feed) as Toolbar
-        setSupportActionBar(toolbar)
+        butterknifeBinder = ButterKnife.bind(this)
+        // bottomNavigation = findViewById(R.id.bnav_feed_activity) as BottomNavigationView?
         initializeInjector()
         bottomNavigation?.setOnNavigationItemSelectedListener(
                 { item ->
@@ -36,6 +36,10 @@ class FeedActivity : BaseActivity(), HasComponent<FeedComponent>, HistoriasListF
                     true
                 })
         addFragment(R.id.fragmentFeedContainer, ProfileFragment())
+    }
+
+    override fun onDestroy() {
+        butterknifeBinder?.unbind()
     }
 
     private fun initializeInjector() {

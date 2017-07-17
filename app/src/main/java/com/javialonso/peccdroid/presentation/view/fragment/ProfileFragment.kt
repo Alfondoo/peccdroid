@@ -22,6 +22,7 @@ import com.javialonso.peccdroid.presentation.view.StaticLayoutManager
 import com.javialonso.peccdroid.presentation.view.adapter.AporteProfileAdapter
 import com.javialonso.peccdroid.presentation.view.adapter.HistoriasProfileAdapter
 import com.javialonso.peccdroid.presentation.view.contract.ProfileView
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileView {
@@ -94,12 +95,23 @@ class ProfileFragment : BaseFragment(), ProfileView {
         if (profileEntity.historias != null) {
             this.historiasNumber?.text = profileEntity.historias.size.toString()
             updateHistorias(profileEntity.historias)
+            var notaAcumulada = 0.0
+            for (historia in profileEntity.historias) {
+                notaAcumulada += historia.puntuacionMedia
+            }
+            val media = notaAcumulada / profileEntity.historias.size
+            this.historiasAvg?.text = DecimalFormat("#.##").format(media).toString()
         }
         if (profileEntity.aportes != null) {
             this.aportesNumber?.text = profileEntity.aportes.size.toString()
             updateAportes(profileEntity.aportes)
+            var notaAcumulada = 0.0
+            for (aporte in profileEntity.aportes) {
+                notaAcumulada += aporte.puntuacionMedia
+            }
+            val media = notaAcumulada / profileEntity.aportes.size
+            this.aportesAvg?.text = DecimalFormat("#.##").format(media).toString()
         }
-        // TODO; Round puntuacion media.
     }
 
     private fun updateAportes(aporteProfiles: List<AporteProfileEntity>) {

@@ -14,9 +14,9 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="24dp"
         android:text="¡Bienvenido a PECC!"
+        android:textAlignment="center"
         android:textColor="#212121"
         android:textSize="30sp"
-        android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -84,5 +84,17 @@
         app:layout_constraintLeft_toRightOf="@+id/btn_login"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_password_login" />
+
+    <ProgressBar
+        android:id="@+id/pb_login_view"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/til_password_login"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
